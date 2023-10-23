@@ -1,0 +1,19 @@
+#formLogeo
+{
+    background-color: dimgray;
+    border-radius: 25px;
+    top: 30%;
+    position: absolute;
+    width: 80%;
+    max-width: 30vw;
+    margin: 0 auto;
+    padding: 15px;
+}    
+
+
+#signInImage{
+    border-radius: 100px;
+    max-width: 60vw;
+    max-height: 45vw;
+    margin-top: 3%;
+}

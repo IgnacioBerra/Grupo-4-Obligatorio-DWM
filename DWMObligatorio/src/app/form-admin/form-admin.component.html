@@ -1,0 +1,26 @@
+<div class="container" id="containerLogeo">
+    <div class="row">
+        <div class="col-sm-8 d-none d-sm-block">
+
+            <img id="signInImage" src="/assets/SignInImage.jpeg">
+
+        </div>
+        <div class="col-sm-4">
+            <form id="formLogeo" class=" p-3 m-3">
+
+                <div class="mb-3">
+                    <label for="user" class="form-label">Username</label>
+                    <input class="form-control" id="user" aria-describedby="emailHelp" [(ngModel)]="username">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" [(ngModel)]="password">
+                </div>
+                <div class="mb-3 form-check">
+                </div>
+                <button type="submit" class="btn btn-primary" onClick="sendCredentials()">Submit</button>
+            </form>
+        </div>
+
+    </div>
+</div>
