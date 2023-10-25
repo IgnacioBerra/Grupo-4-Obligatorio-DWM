@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
     res.send(propuestas);
 });
 
-router.post('/agregar', (req, res) => {
+router.post('/addProposal', (req, res) => {
     const nuevaPropuesta = {
         id: req.body.id,
         titulo: req.body.titulo,
