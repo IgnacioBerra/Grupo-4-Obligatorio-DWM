@@ -11,6 +11,16 @@ router.get('/', (req, res) => {
     res.send(activities);
 });
 
+router.get('/:activityId', (req, res) => {
+    const activityId = parseInt(req.params.activityId);
+    const activity = activities.find(activity => activity.id === activityId);
+    if (!activity) {
+        return res.status(404).json({ error: 'Activity not found.' });
+    }else{
+        return res.send(activity);
+    } 
+});
+
 router.post('/addActivity', (req, res) => {
     const newActivity = {
         id: req.body.id,
