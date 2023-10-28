@@ -18,6 +18,16 @@ router.get('/', (req, res) => {
     res.send(propuestas);
 });
 
+router.get('/:proposalId', (req, res) => {
+    const proposalId = parseInt(req.params.proposalId);
+    const prop = propuestas.find(p => p.id === proposalId);
+    if (!prop) {
+        return res.status(404).json({ error: 'Proposal not found.' });
+    }else{
+        return res.send(prop);
+    } 
+});
+
 router.post('/addProposal', (req, res) => {
     const nuevaPropuesta = {
         id: req.body.id,
