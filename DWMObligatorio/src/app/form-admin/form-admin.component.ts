@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component,ElementRef, ViewChild,Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { userCredentials } from '../user';
+import { Router } from '@angular/router';
+
 
 
 
@@ -10,12 +12,13 @@ import { userCredentials } from '../user';
   styleUrls: ['./form-admin.component.css']
 })
 export class FormAdminComponent {
+
+  constructor(private router: Router,private renderer: Renderer2) { }
+  
   username = "";
   password = "";
 
-
-
-  sendCredentials() {
+  async logeo() {
 
     if (this.username == null || this.password == null) {
       if (!this.username || !this.password) {
@@ -27,27 +30,43 @@ export class FormAdminComponent {
       User: this.username,
       PassWord: this.password
     };
-
-    this.fetchPost(credentials);
-
-    this.username ="";
-    this.password ="";
+    try {
+      await this.fetchPost(credentials);
+      this.username = "";
+      this.password = "";
+    }
+    catch (error) {
+      console.error(error);
+    }
   }
 
 
   async fetchPost(UserCredentials: userCredentials) {
     try {
-      const post = await fetch("http://localhost:3000", {
+      const post = await fetch("http://localhost:3000/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(UserCredentials),
       });
-      let result = await post.json();
+      const response = await post.json();
+
+      console.log(response)
+      if ( response.valido==true) {
+        console.log(" ACCEDISTE FINALMENTE.");
+        console.log("Como es posible este suceso");
+        //this.router.navigate(['/']);
+      } else {
+
+        
+        console.log("NO ACCEDISTE FINALMENTE.")
+
+       // this.router.navigate(['/']);
+      }
     }
     catch (error) {
-      console.error("Error")
+      console.error(error)
     }
   }
 
