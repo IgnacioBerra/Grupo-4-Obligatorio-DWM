@@ -1,7 +1,8 @@
-import { Component,ElementRef, ViewChild,Renderer2 } from '@angular/core';
+import { Component, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { userCredentials } from '../user';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-form-admin',
@@ -10,8 +11,11 @@ import { Router } from '@angular/router';
 })
 export class FormAdminComponent {
 
-  constructor(private router: Router,private renderer: Renderer2) { }
-  
+
+  constructor(private router: Router, private renderer: Renderer2) {
+
+  }
+
   username = "";
   password = "";
 
@@ -66,6 +70,5 @@ export class FormAdminComponent {
       console.error(error)
     }
   }
-
 }
 
