@@ -2,6 +2,37 @@
 <ul>
   <li *ngFor="let propuesta of propuestas">
     <p>{{propuesta.id}}</p>
-    <p>{{propuesta.imagen}}</p>
-    <p>{{propuesta.titulo}}</p>
+    <p>{{propuesta.image}}</p>
+    <p>{{propuesta.title}}</p>
+    <button (click)="deletePropuesta('6541206551391fd5288a7dcb')">Eliminar Propuesta</button>
 </ul>
+
+<div>
+  <!-- <button (click)="postNewPropuesta()">Crear Nueva Propuesta</button>-->
+  <!--<button (click)="updateExistingPropuesta()">Actualizar Propuesta</button>-->
+</div>
+
+<!-- ***********FORMULARIO AGREGAR PROPUESTA*********** -->
+<div class="container">
+  <h2>Agregar una nueva propuesta</h2>
+  <div>
+  <form (ngSubmit)="onSubmit()" #propuestaForm="ngForm">
+    <div class="form-group">
+      <label for="title">Título</label>
+      <input type="text" class="form-control" id="title" name="title" [(ngModel)]="newPropuesta.title" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Descripción</label>
+      <textarea class="form-control" id="description" name="description" [(ngModel)]="newPropuesta.description" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="image">URL de la imagen</label>
+      <input type="text" class="form-control" id="image" name="image" [(ngModel)]="newPropuesta.image" required>
+    </div>
+    <div class="form-group">
+      <label for="activities">Actividades</label>
+      <input type="text" class="form-control" id="activities" name="activities" [(ngModel)]="newPropuesta.activities" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Agregar Propuesta</button>
+  </form>
+</div>
