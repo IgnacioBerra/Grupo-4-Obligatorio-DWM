@@ -1,5 +1,7 @@
 export interface Propuesta {
     id: number;
-    titulo: string;
-    imagen: string;
+    title: string;
+    image: string;
+    description: string;
+    activities: string[];
   }

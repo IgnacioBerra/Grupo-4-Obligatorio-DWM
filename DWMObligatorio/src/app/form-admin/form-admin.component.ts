@@ -3,9 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { userCredentials } from '../user';
 import { Router } from '@angular/router';
 
-
-
-
 @Component({
   selector: 'app-form-admin',
   templateUrl: './form-admin.component.html',
@@ -43,7 +40,7 @@ export class FormAdminComponent {
 
   async fetchPost(UserCredentials: userCredentials) {
     try {
-      const post = await fetch("http://localhost:3000/api/login", {
+      const post = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
