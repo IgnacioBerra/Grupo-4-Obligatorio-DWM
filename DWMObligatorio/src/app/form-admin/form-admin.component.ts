@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class FormAdminComponent {
 
 
-  constructor(private router: Router, private renderer: Renderer2) {
+  constructor(private router: Router) {
 
   }
 
@@ -54,16 +54,16 @@ export class FormAdminComponent {
       const response = await post.json();
 
       console.log(response)
-      if ( response.valido==true) {
+      if (response.valido == true) {
         console.log(" ACCEDISTE FINALMENTE.");
         console.log("Como es posible este suceso");
-        //this.router.navigate(['/']);
+        this.router.navigate(['/indexAdmin']);
       } else {
 
-        
+
         console.log("NO ACCEDISTE FINALMENTE.")
 
-       // this.router.navigate(['/']);
+        this.router.navigate(['/']);
       }
     }
     catch (error) {
