@@ -20,6 +20,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { BreakpointObserver, LayoutModule } from '@angular/cdk/layout';
 import { MatCardModule} from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { WaitingRoomComponent } from './waiting-room/waiting-room.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FormAdminComponent,
     AdminBarsComponent,
     CardViewComponent,
-    AdminPageComponent
+    AdminPageComponent,
+    WaitingRoomComponent
   ],
   imports: [
     FormsModule,
@@ -43,7 +46,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     LayoutModule,
     MatCardModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    QRCodeModule
   ],
   providers: [BreakpointObserver, AuthServiceService, {
     provide: HTTP_INTERCEPTORS,

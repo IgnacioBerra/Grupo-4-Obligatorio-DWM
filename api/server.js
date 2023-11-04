@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path'); // Agrega esta línea para importar el módulo path
+
 
 mongoose.connect(process.env.DATABASE_URL), { useNewUrlParser: true };
 const db = mongoose.connection;
@@ -23,6 +25,9 @@ app.use('/proposal', proposalRouter);
 app.use('/activities', activityRouter);
 app.use('/login', loginRouter);
 app.use('/game', gamesRouter);
+
+// Servir el archivo QR estático
+app.use('/qr', express.static(path.join(__dirname, 'qr'))); //esto es para poder acceder a la imagen desde localhost...
 
 app.listen(3000, () => console.log('Server started'));
 
