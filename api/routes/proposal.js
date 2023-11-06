@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Proposal = require('../models/proposalSchema');
+const authenticateToken = require('../authMiddleware');
 
-router.get('/', async (req, res) => {
+router.get('/',authenticateToken, async (req, res) => {
     try {
         const proposals = await Proposal.find()
         res.json(proposals);
@@ -15,7 +16,7 @@ router.get('/:id', getProposal, (req, res) => {
     res.json(res.proposal);
 })
 
-router.post('/', async (req, res) => {
+router.post('/', authenticateToken, async (req, res) => {
     const proposal = new Proposal({
         id: req.body.id,
         title: req.body.title,

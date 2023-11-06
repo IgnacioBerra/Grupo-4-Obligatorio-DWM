@@ -1,8 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const User = require('../models/userSchema'); 
+const User = require('../models/userSchema');
 const router = express.Router();
-const secret = 'qhx578hjGrupoCuatro';
+const secret = process.env.SECRET_KEY;
 const bcrypt = require('bcrypt');
 
 
@@ -14,8 +15,8 @@ router.post('/', async (req, res) => {
         const isValid = await findUser(username, password);
 
         if (isValid) {
-            const token = jwt.sign({ user: username }, secret, { expiresIn: '10m' });
-            res.json({ token, valido: true });
+            const accessToken = generateAccessToken(username);
+            res.json({ accessToken, valido: true });
         } else {
             res.status(401).json({ message: 'Credenciales inválidas. Acceso no autorizado.', valido: false });
         }
@@ -24,25 +25,38 @@ router.post('/', async (req, res) => {
     }
 });
 
+//ruta de prueba para el token
+router.post('/login', async (req, res) => {
+    const user = {
+        id: 1
+    };
+    const accessToken = generateAccessToken(user);
+    res.json({
+        token: accessToken
+    });
+});
+
+
+
 async function findUser(username, passwordCheck) {
     try {
-        const userFind = await User.findOne({ username }); // Utiliza el modelo de usuario correctamente
+        const userFind = await User.findOne({ username });
 
         if (userFind) {
             const passwordMatches = await bcrypt.compare(passwordCheck, userFind.password);
             if (passwordMatches) {
-                console.log("Coincidió.");
+                console.log('Coincidió.');
                 return true;
             } else {
-                console.log("No coincide");
-                console.log("Stored Password:", userFind.password);
+                console.log('No coincide');
+                console.log('Stored Password:', userFind.password);
                 return false;
             }
         } else {
             return false;
         }
     } catch (error) {
-        console.error("Error al buscar el usuario:", error);
+        console.error('Error al buscar el usuario:', error);
         return false;
     }
 }
@@ -52,16 +66,25 @@ router.post('/addUser', async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = new User({
         username: req.body.username,
-        password: hashedPassword
+        password: hashedPassword,
     });
     try {
         const newUser = await user.save();
-        res.status(201).json(newUser)
+        res.status(201).json(newUser);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
-    
 });
 
+router.post('/logout', (req, res) => {
+    res.json({ message: 'Sesión cerrada con éxito' });
+});
+
+
+
+function generateAccessToken(username) {
+    const accessToken = jwt.sign({ user: username }, secret, { expiresIn: '30m' });
+    return accessToken;
+}
 
 module.exports = router;
