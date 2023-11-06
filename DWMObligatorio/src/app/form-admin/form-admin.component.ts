@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { userCredentials } from '../user';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-form-admin',
   templateUrl: './form-admin.component.html',
@@ -11,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class FormAdminComponent {
 
-
+  token="";
   constructor(private router: Router) {
 
   }
@@ -41,8 +40,12 @@ export class FormAdminComponent {
     }
   }
 
+  
+  
+
 
   async fetchPost(UserCredentials: userCredentials) {
+
     try {
       const post = await fetch("http://localhost:3000/login", {
         method: "POST",
@@ -55,6 +58,8 @@ export class FormAdminComponent {
 
       console.log(response)
       if (response.valido == true) {
+        console.log(response.accessToken)
+        localStorage.setItem('access_token',response.accessToken);
         console.log(" ACCEDISTE FINALMENTE.");
         console.log("Como es posible este suceso");
         this.router.navigate(['/indexAdmin']);
@@ -70,5 +75,8 @@ export class FormAdminComponent {
       console.error(error)
     }
   }
+
+  
+
 }
 

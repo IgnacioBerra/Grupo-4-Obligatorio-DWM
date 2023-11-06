@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Propuesta } from '../propuesta';
 import { PropuestaService } from '../propuesta.service';
-
 @Component({
   selector: 'app-card-view',
   templateUrl: './card-view.component.html',
@@ -15,7 +14,8 @@ export class CardViewComponent implements OnInit {
   constructor(private propuestaService: PropuestaService) {}
 
   ngOnInit() {
-    this.tarjetas = this.propuestaService.getPropuestas();
+    const accessToken = localStorage.getItem('access_token');
+    this.tarjetas = this.propuestaService.getPropuestas(accessToken || 'null');
   }
 
 }
