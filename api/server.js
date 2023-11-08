@@ -36,12 +36,8 @@ const io = require('socket.io')(3333,{
 
 io.on("connection",socket =>{
     console.log(socket.id)
-    socket.on("send", (message,room) => {
-        if (room === '' ){
-            socket.broadcast.emit('custom-event',message)
-        }else{
-            socket.to(room).emit('custom-event',message)
-        }
+    socket.on("iniciarJuego", (actividadId) => {
+        socket.broadcast.emit("iniciarJuego",actividadId)
     })
 
 })

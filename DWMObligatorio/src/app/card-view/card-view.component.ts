@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Propuesta } from '../propuesta';
 import { PropuestaService } from '../propuesta.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-card-view',
   templateUrl: './card-view.component.html',
@@ -11,16 +13,18 @@ import { PropuestaService } from '../propuesta.service';
 export class CardViewComponent implements OnInit {
   tarjetas!: Observable<any[]>;
 
-  constructor(private propuestaService: PropuestaService) {}
+  constructor(private propuestaService: PropuestaService,private router: Router) {}
 
   ngOnInit() {
     const accessToken = localStorage.getItem('access_token');
     this.tarjetas = this.propuestaService.getPropuestas(accessToken || 'null');
   }
 
-  guardarId(actividadId:Number)
+  guardarId(actividadId:string)
   {
-    localStorage.setItem('propuestaId', actividadId.toString());
+    localStorage.setItem('propuestaId', actividadId);
+    this.router.navigate(['/game']);
+    
   }
 
 }

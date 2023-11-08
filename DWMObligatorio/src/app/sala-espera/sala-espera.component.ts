@@ -49,6 +49,10 @@ export class SalaEsperaComponent {
     this.socket.on('custom-event', propuesta => {
       this.socket.emit("pass", propuesta)
     })
+
+    this.socket.on('iniciarJuego', (actividadId) => {
+      
+    });
   }
 
   /*iniciarPropuesta(propuestaId: any) {
@@ -56,13 +60,21 @@ export class SalaEsperaComponent {
   }*/
 
   readID(){
-    const activityID = parseInt(localStorage.getItem('propuestaId'),10);
-    iniciarJuego(activityID);
+    // LEO DEL LOCALSTORAGE CUAL ES LA ACTIVIDAD QUE SE HABIA SELECCIONADO PREVIAMENTE PARA DESPUES JUGARLA.
+    const activityID = localStorage.getItem('propuestaId');
+    if(activityID != null)
+    {
+      this.iniciarJuego(activityID);
+    }
+    
   }
 
-  iniciarJuego(propuestaId:number){
-
+  public iniciarJuego(propuestaId:string){
+      // LOGICA DE IR MOSTRANDO ACTIVIDADES 
+      this.socket.emit("iniciarJuego", propuestaId);
   }
+
+  
 
 
 }
