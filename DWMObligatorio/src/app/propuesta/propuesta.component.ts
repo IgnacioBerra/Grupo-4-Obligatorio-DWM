@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PropuestaService } from '../propuesta.service';
 import { Propuesta } from "../propuesta";
-import { CookieService } from 'ngx-cookie-service';
+
+
+
 @Component({
   selector: 'app-propuesta',
   templateUrl: './propuesta.component.html',
@@ -18,11 +20,17 @@ export class PropuestaComponent {
     activities: []
   };
 
-  constructor(private propuestaService: PropuestaService) { }
+  constructor(private propuestaService: PropuestaService, ) { 
+   
+  }
 
   ngOnInit(): void {
     this.getPropuestas();
   }
+
+  
+
+  
 
   getPropuestas(): void {
     this.propuestaService.getPropuestas(localStorage.getItem('access_token')||'null').subscribe(x => this.propuestas = x);
@@ -55,4 +63,6 @@ export class PropuestaComponent {
       console.log('Propuesta eliminada');
     });
   }
+
+
 }
