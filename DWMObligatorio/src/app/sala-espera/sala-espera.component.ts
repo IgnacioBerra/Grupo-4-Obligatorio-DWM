@@ -26,7 +26,9 @@ export class SalaEsperaComponent {
   // //   });
   // // }
   qrUrl: string = '';
+
   public socket;
+
   constructor(private AuthService: AuthServiceService) {
     this.socket = io('http://localhost:3333')
   }
@@ -36,8 +38,9 @@ export class SalaEsperaComponent {
       this.qrUrl = url;
       console.log(this.qrUrl);
     });
+
     this.socket.on('connect', () => {
-      console.log('You connected with id: ${socket.id}');
+      console.log(`You connected with id: ${this.socket.id}`);
     });
 
 
@@ -48,9 +51,9 @@ export class SalaEsperaComponent {
     })
   }
 
-  iniciarPropuesta(propuestaId: any) {
+  /*iniciarPropuesta(propuestaId: any) {
     this.socket.emit('iniciamo', propuestaId);
-  }
+  }*/
 
 
 }
