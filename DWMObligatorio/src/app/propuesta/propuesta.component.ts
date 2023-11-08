@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PropuestaService } from '../propuesta.service';
 import { Propuesta } from "../propuesta";
+import {io}  from 'socket.io-client';
+
+
 @Component({
   selector: 'app-propuesta',
   templateUrl: './propuesta.component.html',
@@ -17,11 +20,32 @@ export class PropuestaComponent {
     activities: []
   };
 
-  constructor(private propuestaService: PropuestaService) { }
+  constructor(private propuestaService: PropuestaService, ) { 
+    let socket = io('http://localhost:3333');
+
+
+    socket.on('connect',() =>{
+      console.log('You connected with id: ${socket.id}');
+    });
+
+    function iniciarPropuesta(propuestaId:any){
+      socket.emit('iniciamo',propuestaId);
+    }
+
+    //recibo propuesta del server 
+    socket.on('custom-event', propuesta=>{
+
+        socket.emit("pass",propuesta)
+    })
+  }
 
   ngOnInit(): void {
     this.getPropuestas();
   }
+
+  
+
+  
 
   getPropuestas(): void {
     this.propuestaService.getPropuestas().subscribe(x => this.propuestas = x);
@@ -54,4 +78,6 @@ export class PropuestaComponent {
       console.log('Propuesta eliminada');
     });
   }
+
+  public socket = io('http://localhost:3333');
 }

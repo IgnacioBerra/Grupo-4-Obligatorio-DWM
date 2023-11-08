@@ -1,3 +1,5 @@
+
+
 require('dotenv').config()
 const express = require('express');
 const app = express();
@@ -25,4 +27,23 @@ app.use('/login', loginRouter);
 app.use('/game', gamesRouter);
 
 app.listen(3000, () => console.log('Server started'));
+
+const io = require('socket.io')(3333,{
+    cors:{
+        origin:["http://localhost:8080"],
+    },
+})
+
+io.on("connection",socket =>{
+    console.log(socket.id)
+    socket.on("send", (message,room) => {
+        if (room === '' ){
+            socket.broadcast.emit('custom-event',message)
+        }else{
+            socket.to(room).emit('custom-event',message)
+        }
+    })
+
+})
+
 

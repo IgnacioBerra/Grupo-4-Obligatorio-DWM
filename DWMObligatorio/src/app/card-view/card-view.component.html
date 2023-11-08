@@ -1,8 +1,7 @@
 <div class="carousel-container">
     <div *ngFor="let tarjeta of tarjetas | async" class="card">
-      <img [src]="tarjeta.imagen" alt="Imagen">
-      <h3>{{tarjeta.titulo}}</h3>
-      <p>{{tarjeta.descripcion}}</p>
+      <img [src]="tarjeta.image" alt="Imagen">
+      <h3>{{tarjeta.title}}</h3>
       <!--<button (click)="editarTarjeta(tarjeta)">Editar</button>-->
     </div>
   </div>
