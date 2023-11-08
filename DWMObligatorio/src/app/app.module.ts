@@ -20,6 +20,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { BreakpointObserver, LayoutModule } from '@angular/cdk/layout';
 import { MatCardModule} from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SalaEsperaComponent } from './sala-espera/sala-espera.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FormAdminComponent,
     AdminBarsComponent,
     CardViewComponent,
-    AdminPageComponent
+    AdminPageComponent,
+    SalaEsperaComponent
   ],
   imports: [
     FormsModule,
