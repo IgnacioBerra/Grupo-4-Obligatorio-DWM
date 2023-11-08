@@ -47,6 +47,10 @@ export class PropuestaComponent {
 
   
 
+  
+
+  
+
   getPropuestas(): void {
     this.propuestaService.getPropuestas(localStorage.getItem('access_token')||'null').subscribe(x => this.propuestas = x);
     console.log(this.propuestas);

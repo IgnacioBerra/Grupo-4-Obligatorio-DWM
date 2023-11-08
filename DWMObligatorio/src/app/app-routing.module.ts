@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormAdminComponent } from './form-admin/form-admin.component';
 import { AdminPageComponent } from "./admin-page/admin-page.component";
 import { SalaEsperaComponent } from './sala-espera/sala-espera.component';
-import { SalaEsperaComponent } from './sala-espera/sala-espera.component';
+
 
 
 const routes: Routes = [
