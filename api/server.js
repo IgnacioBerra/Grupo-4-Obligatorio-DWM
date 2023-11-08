@@ -34,7 +34,7 @@ app.listen(3000, () => console.log('Server started'));
 
 const io = require('socket.io')(3333,{
     cors:{
-        origin:["http://localhost:8080"],
+        origin:["http://localhost:4200"],
     },
 })
 
