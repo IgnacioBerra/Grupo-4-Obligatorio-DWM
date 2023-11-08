@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environment/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
 
-  private baseUrl = 'http://localhost:3000';
-  
+  //private baseUrl = 'http://localhost:3000';
+  private baseUrl = `http://${environment.url}:3000`; //me agarra la variable de dev, si quiero que agarre la de prod cambio el import
+
   constructor(private http: HttpClient) {}
 
   login(username: string, password: string) {
@@ -18,7 +21,8 @@ export class AuthServiceService {
     });
   }
 
-  getQrFilePath(): Observable<string> {
-    return this.http.get<string>(`${this.baseUrl}/game`);
+  getQrFilePath(){
+    return this.http.get(`${this.baseUrl}/game`, { responseType: 'blob' });
   }
+
 }

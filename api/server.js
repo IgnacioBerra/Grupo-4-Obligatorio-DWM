@@ -25,8 +25,5 @@ app.use('/activities', activityRouter);
 app.use('/login', loginRouter);
 app.use('/game', gamesRouter);
 
-// Servir el archivo QR estático
-app.use('/qr', express.static(path.join(__dirname, 'qr'))); //esto es para poder acceder a la imagen desde localhost...
-
 app.listen(3000, () => console.log('Server started'));
 
