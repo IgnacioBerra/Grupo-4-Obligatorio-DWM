@@ -1,7 +1,8 @@
 mat-toolbar {
-  background: #004a9f;
+  background: transparent;
   color: white;
 }
+
 
 mat-sidenav {
   margin: 16px;
@@ -24,7 +25,7 @@ span {
   border-radius: 10px;
   margin: 16px;
   margin-left: 32px;
-
+background-color: rgba(255, 255, 255, 0.285);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,7 +36,7 @@ span {
 
 mat-sidenav-container {
   height: calc(100vh - 65px);
-  background-color: white;
+  background-color: transparent;
 }
 
 .menu-button {
@@ -44,7 +45,7 @@ mat-sidenav-container {
   align-items: center;
   justify-content: flex-start;
   font-size: 1rem;
-  color: white;
+  color: black;
 
   mat-icon {
     margin-right: 8px;
@@ -75,6 +76,18 @@ mat-divider {
   background-color: rgba(255, 255, 255, 0.5);
 }
 
-mat-icon{
+mat-icon {
+  color: black;
+}
+
+.btn-sidenav{
+  width: 150px;
   color: white;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.btn-sidenav:hover{
+  width: 150px;
+  background-color: #011f41;
 }

@@ -1,8 +1,36 @@
-<div class="carousel-container">
-    <div *ngFor="let tarjeta of tarjetas | async" class="card">
-      <img [src]="tarjeta.image" alt="Imagen">
-      <h3>{{tarjeta.title}}</h3>
-      <p>{{tarjeta.descripcion}}</p>
-      <!--<button (click)="editarTarjeta(tarjeta)">Editar</button>-->
+<div class="container">
+  <div class="row">
+    <div class="col proposal-container">
+      <div class="row">
+        <div class="cartas">
+          <div class="col" *ngFor="let tarjeta of tarjetas | async">
+            <div class="proposal-card shadow-sm d-flex flex-column ">
+              <div class="row">
+                <div class="col">
+                  <h1>{{tarjeta.title}}</h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <img src="../../assets//SignInImage.jpeg" width="200px" height="200px" class="rounded float-start"
+                    alt="...">
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col">
+                  <p class="lead">{{tarjeta.description}}</p>
+                </div>
+              </div>
+              <div class="row mt-auto">
+                <div class="col text-center">
+                  <button class="btn btn-play" routerLink="/showActivities">Jugar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+</div>
