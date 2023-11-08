@@ -37,7 +37,7 @@ const io = require('socket.io')(3333,{
 io.on("connection",socket =>{
     console.log(socket.id)
     socket.on("iniciarJuego", (actividadId) => {
-        socket.broadcast.emit("iniciarJuego",actividadId)
+        socket.broadcast.emit("iniciarActividad",actividadId)
     })
 
 })

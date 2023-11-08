@@ -50,8 +50,10 @@ export class SalaEsperaComponent {
       this.socket.emit("pass", propuesta)
     })
 
-    this.socket.on('iniciarJuego', (actividadId) => {
+    this.socket.on('iniciarActividad', (actividadId) => {
+      // LOGICA IR MOSTRANDO LAS ACTIVIDADES
       
+
     });
   }
 
@@ -70,11 +72,8 @@ export class SalaEsperaComponent {
   }
 
   public iniciarJuego(propuestaId:string){
-      // LOGICA DE IR MOSTRANDO ACTIVIDADES 
+      
       this.socket.emit("iniciarJuego", propuestaId);
+    
   }
-
-  
-
-
 }

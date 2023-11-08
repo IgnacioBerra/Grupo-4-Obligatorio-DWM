@@ -28,15 +28,7 @@ export class PropuestaComponent {
       console.log('You connected with id: ${socket.id}');
     });
 
-    function iniciarPropuesta(propuestaId:any){
-      socket.emit('iniciamo',propuestaId);
-    }
-
-    //recibo propuesta del server 
-    socket.on('custom-event', propuesta=>{
-
-        socket.emit("pass",propuesta)
-    })
+   
   }
 
   ngOnInit(): void {
