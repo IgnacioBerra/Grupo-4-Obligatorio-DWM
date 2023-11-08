@@ -4,9 +4,6 @@ import { Propuesta } from "../propuesta";
 import {io}  from 'socket.io-client';
 
 
-
-
-
 @Component({
   selector: 'app-propuesta',
   templateUrl: './propuesta.component.html',
@@ -40,9 +37,6 @@ export class PropuestaComponent {
 
         socket.emit("pass",propuesta)
     })
-  }
-  constructor(private propuestaService: PropuestaService, ) { 
-   
   }
 
   ngOnInit(): void {
@@ -85,5 +79,5 @@ export class PropuestaComponent {
     });
   }
 
-
+  public socket = io('http://localhost:3333');
 }
