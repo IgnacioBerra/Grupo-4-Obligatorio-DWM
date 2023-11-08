@@ -3,7 +3,7 @@
       <img [src]="tarjeta.image" alt="Imagen">
       <h3>{{tarjeta.title}}</h3>
       <!--<button (click)="editarTarjeta(tarjeta)">Editar</button>-->
-      <button routerLink="/game">Jugar</button>
+      <button routerLink="/game" (click)="guardarId(tarjeta._id.toString())">Jugar</button>
       
     </div>
   </div>

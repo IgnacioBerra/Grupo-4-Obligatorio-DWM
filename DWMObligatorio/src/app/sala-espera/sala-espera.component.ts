@@ -55,5 +55,14 @@ export class SalaEsperaComponent {
     this.socket.emit('iniciamo', propuestaId);
   }*/
 
+  readID(){
+    const activityID = parseInt(localStorage.getItem('propuestaId'),10);
+    iniciarJuego(activityID);
+  }
+
+  iniciarJuego(propuestaId:number){
+
+  }
+
 
 }
