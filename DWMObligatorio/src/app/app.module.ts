@@ -21,6 +21,7 @@ import { BreakpointObserver, LayoutModule } from '@angular/cdk/layout';
 import { MatCardModule} from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SalaEsperaComponent } from './sala-espera/sala-espera.component';
+import { ShowActivitiesComponent } from './show-activities/show-activities.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SalaEsperaComponent } from './sala-espera/sala-espera.component';
     AdminBarsComponent,
     CardViewComponent,
     AdminPageComponent,
-    SalaEsperaComponent
+    SalaEsperaComponent,
+    ShowActivitiesComponent
   ],
   imports: [
     FormsModule,
