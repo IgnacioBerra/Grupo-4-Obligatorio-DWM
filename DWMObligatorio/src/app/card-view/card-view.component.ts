@@ -18,4 +18,9 @@ export class CardViewComponent implements OnInit {
     this.tarjetas = this.propuestaService.getPropuestas(accessToken || 'null');
   }
 
+  guardarId(actividadId:Number)
+  {
+    localStorage.setItem('propuestaId', actividadId.toString());
+  }
+
 }
