@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Activity = require('../models/activitiesSchema'); 
+const authenticateToken = require('../authMiddleware');
 
-router.get('/', async (req, res) => {
+router.get('/',authenticateToken ,async (req, res) => {
     try {
         const activities = await Activity.find();
         res.json(activities);
@@ -11,11 +12,11 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', getActivity, (req, res) => {
+router.get('/:id',authenticateToken ,getActivity, (req, res) => {
     res.json(res.activity);
 });
 
-router.post('/', async (req, res) => {
+router.post('/', authenticateToken,async (req, res) => {
     const activity = new Activity({
         title: req.body.title,
         description: req.body.description,
@@ -29,7 +30,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.patch('/:id', getActivity, async (req, res) => {
+router.patch('/:id', authenticateToken, getActivity, async (req, res) => {
     if (req.body.title != null) {
         res.activity.title = req.body.title;
     }
@@ -48,7 +49,7 @@ router.patch('/:id', getActivity, async (req, res) => {
     }
 });
 
-router.delete('/:id', getActivity, async (req, res) => {
+router.delete('/:id', getActivity, authenticateToken, async (req, res) => {
     try {
         await res.activity.deleteOne();
         res.json({ message: 'Se ha borrado la actividad' });

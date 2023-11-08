@@ -1,0 +1,35 @@
+<div class="fondo">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-6">
+                <div class="card shadow" *ngFor="let activity of activities | async">
+                    <div class="card-header">
+                        Featured
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                    <div class="card-footer text-body-secondary">
+                        2 days ago
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-6 text-center">
+                <div class="vote shadow rounded">
+                    <input type="radio" class="btn-check" name="options-base" id="option5" autocomplete="off">
+                    <label class="btn btn-vote" for="option5">Like</label>
+
+                    <input type="radio" class="btn-check" name="options-base" id="option6" autocomplete="off">
+                    <label class="btn btn-vote" for="option6">Dislike</label>
+
+                    <input type="radio" class="btn-check" name="options-base" id="option8" autocomplete="off">
+                    <label class="btn btn-vote" for="option8">Not interested</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
