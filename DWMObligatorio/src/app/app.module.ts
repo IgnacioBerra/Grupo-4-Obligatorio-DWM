@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { FormAdminComponent } from './form-admin/form-admin.component';
 import { PropuestaComponent } from './propuesta/propuesta.component';
 import { AtzationInterceptor } from './atzation.interceptor';
-import { AuthServiceService } from './auth-service.service';
+import { AuthServiceService } from './services/auth-service.service';
 import { AdminBarsComponent } from './admin-bars/admin-bars.component';
 import { CardViewComponent } from './card-view/card-view.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
@@ -22,6 +22,7 @@ import { MatCardModule} from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SalaEsperaComponent } from './sala-espera/sala-espera.component';
 import { ShowActivitiesComponent } from './show-activities/show-activities.component';
+import { GameUserComponent } from './game-user/game-user.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ShowActivitiesComponent } from './show-activities/show-activities.compo
     CardViewComponent,
     AdminPageComponent,
     SalaEsperaComponent,
-    ShowActivitiesComponent
+    ShowActivitiesComponent,
+    GameUserComponent
   ],
   imports: [
     FormsModule,

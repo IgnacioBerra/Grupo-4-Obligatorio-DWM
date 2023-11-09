@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthServiceService } from '../auth-service.service';
-import { HttpClient } from '@angular/common/http';
-import { Router } from 'express';
+import { AuthServiceService } from '../services/auth-service.service';
 import { environment } from 'src/environment/environment';
+import { SocketService } from '../services/socket.service';
 
 @Component({
   selector: 'app-sala-espera',
@@ -12,12 +11,22 @@ import { environment } from 'src/environment/environment';
 export class SalaEsperaComponent {
 
   imageUrl: string = '';
-  constructor(private AuthService: AuthServiceService) {}
+  usuarios: number = 0;
+
+  constructor(private AuthService: AuthServiceService, private socket: SocketService) {
+
+    this.socket.userCount$.subscribe(count => {
+      this.usuarios = count;
+      console.log(this.usuarios);
+    });
+  }
 
   ngOnInit() {
     console.log(environment.url);
       this.AuthService.getQrFilePath().subscribe((img: Blob) => {
         this.imageUrl = URL.createObjectURL(img);        
-    });
+    }); 
     }
+
+    
 }

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Activity } from "./activity";
+import { Activity } from "../interfaces/activity";
 import { Observable } from 'rxjs';
 
 @Injectable({

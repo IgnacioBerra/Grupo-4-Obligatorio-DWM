@@ -76,7 +76,7 @@
 }
   
   .ex {
-    background: rgba(0, 0, 0, 0.5); /* Establece un fondo transparente con un color oscuro (ajusta el valor alfa según sea necesario) */    
+    background: rgba(252, 5, 5, 0.5); /* Establece un fondo transparente con un color oscuro (ajusta el valor alfa según sea necesario) */    
   }
 
   .lead {

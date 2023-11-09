@@ -3,7 +3,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Propuesta } from './propuesta';
+import { Propuesta } from '../interfaces/propuesta';
 
 @Injectable({
   providedIn: 'root'
