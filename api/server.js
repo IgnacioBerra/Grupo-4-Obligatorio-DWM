@@ -70,6 +70,10 @@ io.on('connection', socket => {
         io.emit('user-count', usuariosConectados.size); // Envía el recuento actual de usuarios conectados
         }
       });
+
+      socket.on("iniciarJuego", (actividadId) => {
+        socket.broadcast.emit("iniciarActividad",actividadId)
+    })
     
 });
 

@@ -29,6 +29,15 @@ export class SocketService {
 
     }
 
+
+    public escucharInicioActividad(){
+      this.socket.on('iniciarActividad', (actividadId:string) => {
+        // LOGICA IR MOSTRANDO LAS ACTIVIDADES
+        
+  
+      });
+    }
+
   increaseUserCount(id: string): void {
     this._userCount.next(this._userCount.getValue() + 1);
     this.sendUser(id);
@@ -49,6 +58,17 @@ export class SocketService {
 
   public sendMessage(message: string): void {
     this.socket.emit('message', message);
+  }
+
+  public iniciarJuego(propuestaId:string){
+      
+    this.socket.emit("iniciarJuego", propuestaId);
+  
+}
+
+  public iniciarActividad(actividadId:string)
+  {
+    this.socket.broadcast.emit("iniciarActividad",actividadId)
   }
 
 }

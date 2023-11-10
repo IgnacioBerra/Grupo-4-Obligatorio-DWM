@@ -20,17 +20,33 @@ export class SalaEsperaComponent implements OnInit {
       console.log(this.usuarios);
     });
 
+    this.socket.escucharInicioActividad();
+
+
   }
 
   ngOnInit() {
     console.log(environment.url);
-      this.AuthService.getQrFilePath().subscribe((img: Blob) => {
-        this.imageUrl = URL.createObjectURL(img); 
-        this.socket.retrieveStoredUserCount(); // Recupera el valor almacenado en localStorage       
-    }); 
-    
-
+    this.AuthService.getQrFilePath().subscribe((img: Blob) => {
+      this.imageUrl = URL.createObjectURL(img);
+      this.socket.retrieveStoredUserCount(); // Recupera el valor almacenado en localStorage       
+    });
+  }
+  readID() {
+    // LEO DEL LOCALSTORAGE CUAL ES LA ACTIVIDAD QUE SE HABIA SELECCIONADO PREVIAMENTE PARA DESPUES JUGARLA.
+    const activityID = localStorage.getItem('propuestaId');
+    if (activityID != null) {
+      this.socket.iniciarJuego(activityID);
     }
 
-    
+  }
+  
+
+
+
 }
+
+    
+
+    
+
