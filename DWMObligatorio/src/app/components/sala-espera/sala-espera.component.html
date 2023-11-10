@@ -23,6 +23,7 @@
                         class="shape-fill"></path>
                 </svg>
             </div>
+        <div *ngIf='!comienzo'>
             <div class="row justify-content-center align-items-center" style="height: 100vh;">
                 <div class="col-6">
                     <div class="login-div text-center">
@@ -43,4 +44,8 @@
             </div>
             <button class="play-button"  (click)="readID()">Play</button>
         </div>
+        <app-show-activities *ngIf="comienzo"></app-show-activities>
+        </div>
+    
     </div>
+</div>

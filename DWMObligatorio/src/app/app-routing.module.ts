@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'login', component: FormAdminComponent },
   { path: 'indexAdmin', component: AdminPageComponent },
   { path: 'game', component: SalaEsperaComponent},
-  { path: 'game-user', component: GameUserComponent}
+  { path: 'game-user', component: GameUserComponent},
 ];
 
 @NgModule({

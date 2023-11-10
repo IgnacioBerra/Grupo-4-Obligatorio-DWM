@@ -22,6 +22,14 @@ export class PropuestaService {
     return this.http.get<Propuesta[]>(this.propuestasUrl, { headers });
   }
 
+  getPropuesta(token: string, id: string): Observable<Propuesta> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<Propuesta>(`${this.propuestasUrl}/${id}`, {headers});
+  }
+
+
   addPropuesta(token: string, newPropuesta: Propuesta): Observable<Propuesta> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`

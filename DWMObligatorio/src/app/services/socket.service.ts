@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
 import { environment } from 'src/environment/environment';
 import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Activity } from '../interfaces/activity';
+import { PropuestaService } from './propuesta.service';
+import { Propuesta } from '../interfaces/propuesta';
+import { ActivitiyService } from './activitiy.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +17,11 @@ export class SocketService {
   private readonly USER_COUNT_KEY = 'userCount';
   private _userCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public userCount$ = this._userCount.asObservable();
-  
-   constructor() { 
+
+  actividad : Activity[] | undefined;
+  propuesta: Propuesta | undefined;
+
+   constructor(private proposalService: PropuestaService, private activityService: ActivitiyService) { 
       //this.socket = io('http://localhost:3333');
       this.socket = io(`http://${environment.url}:3000`);
    
@@ -26,17 +34,33 @@ export class SocketService {
       });
 
      this.retrieveStoredUserCount();
-
+    //this.escucharInicioActividad();
     }
-
 
     public escucharInicioActividad(){
-      this.socket.on('iniciarActividad', (actividadId:string) => {
-        // LOGICA IR MOSTRANDO LAS ACTIVIDADES
-        
-  
+      this.socket.on('iniciarActividad', (propuestaID:string) => {        
+        const accessToken = localStorage.getItem('access_token');
+        if(accessToken){
+          this.proposalService.getPropuesta( accessToken , propuestaID).subscribe( (data: Propuesta) => { //suscribe porq es un Observable
+            this.propuesta = data;
+            console.log(this.propuesta);
+            if (this.propuesta && this.propuesta.activities) {
+              this.propuesta.activities.forEach(activity => {
+                console.log('Actividad:', activity); //actividad  
+                //llamar a un metodo , pasandole por parametro la actividad 
+                this.socket.emit("actividad-pantalla", activity);
+              });
+            }
+          },
+          error => {
+            console.error('Error al obtener la propuesta:', error);
+          }
+        );              
+        }  
       });
     }
+
+
 
   increaseUserCount(id: string): void {
     this._userCount.next(this._userCount.getValue() + 1);
@@ -56,12 +80,9 @@ export class SocketService {
     this.socket.emit('usuario-conectado', id);
   }
 
-  public sendMessage(message: string): void {
-    this.socket.emit('message', message);
-  }
 
-  public iniciarJuego(propuestaId:string){
-      
+
+  public iniciarJuego(propuestaId:string){      
     this.socket.emit("iniciarJuego", propuestaId);
   
 }

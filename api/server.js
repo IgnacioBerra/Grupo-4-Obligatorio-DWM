@@ -56,9 +56,15 @@ io.on('connection', socket => {
         socket.emit('add-usuario', userName);
     });
 
-    socket.on('message', (hola) => {
-        console.log(hola);
-        // Lógica para iniciar el juego y mostrar actividades
+    socket.on("iniciarJuego", (actividadId) => {        
+        socket.emit("iniciarActividad",actividadId); //probar hacer broadcast
+    });
+
+    
+    socket.on("actividad-pantalla", (actividad) =>
+    {
+        //logica para que con un timeOut vaya emitiendo cada cierto tiempo la 'actividad'
+        
     });
 
     socket.on('disconnect', () => {
@@ -71,9 +77,6 @@ io.on('connection', socket => {
         }
       });
 
-      socket.on("iniciarJuego", (actividadId) => {
-        socket.broadcast.emit("iniciarActividad",actividadId)
-    })
     
 });
 

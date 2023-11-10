@@ -12,6 +12,7 @@ export class SalaEsperaComponent implements OnInit {
 
   imageUrl: string = '';
   usuarios: number = 0;
+  comienzo: boolean = false;
 
   constructor(private AuthService: AuthServiceService, private socket: SocketService) {
 
@@ -22,7 +23,6 @@ export class SalaEsperaComponent implements OnInit {
 
     this.socket.escucharInicioActividad();
 
-
   }
 
   ngOnInit() {
@@ -32,18 +32,18 @@ export class SalaEsperaComponent implements OnInit {
       this.socket.retrieveStoredUserCount(); // Recupera el valor almacenado en localStorage       
     });
   }
+
   readID() {
     // LEO DEL LOCALSTORAGE CUAL ES LA ACTIVIDAD QUE SE HABIA SELECCIONADO PREVIAMENTE PARA DESPUES JUGARLA.
     const activityID = localStorage.getItem('propuestaId');
     if (activityID != null) {
+      console.log(activityID);
       this.socket.iniciarJuego(activityID);
+      this.comienzo = true;
     }
 
   }
   
-
-
-
 }
 
     
