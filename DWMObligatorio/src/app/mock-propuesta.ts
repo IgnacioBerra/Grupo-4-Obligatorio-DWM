@@ -1,4 +1,4 @@
-import { Propuesta } from './propuesta';
+import { Propuesta } from './interfaces/propuesta';
 
 export const PROPUESTAS: Propuesta[] = [
   { id: 12, titulo:'HOLA', imagen:'jksd' },

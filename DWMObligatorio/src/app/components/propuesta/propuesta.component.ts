@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PropuestaService } from '../propuesta.service';
-import { Propuesta } from "../propuesta";
-import { CookieService } from 'ngx-cookie-service';
+import { PropuestaService } from '../../services/propuesta.service';
+import { Propuesta } from "../../interfaces/propuesta";
+
 @Component({
   selector: 'app-propuesta',
   templateUrl: './propuesta.component.html',
