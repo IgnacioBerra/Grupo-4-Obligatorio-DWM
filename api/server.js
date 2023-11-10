@@ -39,15 +39,18 @@ http.listen(3000, () => {
     console.log('Server started port 3000');
 });
 
-let usuariosConectados = new Map();
+
+const usuariosConectados = new Map();
 
 io.on('connection', socket => {
+  let uniqueId;
 
-    socket.on('usuario-conectado', (userId) => {
-        console.log('User connected:', socket.id);
-        usuariosConectados.set(socket.id, true);
-        io.emit('user-count', usuariosConectados.size); // Envía el recuento actual de usuarios conectados
-      });
+  socket.on('usuario-conectado', (uuid) => {
+    console.log('User connected:', uuid);
+    usuariosConectados.set(uuid, true);
+    uniqueId = uuid;
+    io.emit('user-count', usuariosConectados.size); // Envía el recuento actual de usuarios conectados
+  });
 
     socket.on('nuevo-usuario', (userName) => {
         socket.emit('add-usuario', userName);
@@ -59,10 +62,14 @@ io.on('connection', socket => {
     });
 
     socket.on('disconnect', () => {
-        console.log('User disconnected', socket.id);
+        if(uniqueId){
+        console.log('User disconnected', uniqueId);
         // Elimina al usuario desconectado del mapa
-        usuariosConectados.delete(socket.id);
+        usuariosConectados.delete(uniqueId);
+        
         io.emit('user-count', usuariosConectados.size); // Envía el recuento actual de usuarios conectados
+        }
       });
+    
 });
 

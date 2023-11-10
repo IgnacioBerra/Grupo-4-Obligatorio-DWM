@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { userCredentials } from '../user';
+import { userCredentials } from '../../user';
 import { Router } from '@angular/router';
 
 @Component({

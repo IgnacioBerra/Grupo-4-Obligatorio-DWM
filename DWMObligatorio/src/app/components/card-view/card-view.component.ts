@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Propuesta } from '../interfaces/propuesta';
-import { PropuestaService } from '../services/propuesta.service';
+import { Propuesta } from '../../interfaces/propuesta';
+import { PropuestaService } from '../../services/propuesta.service';
 @Component({
   selector: 'app-card-view',
   templateUrl: './card-view.component.html',

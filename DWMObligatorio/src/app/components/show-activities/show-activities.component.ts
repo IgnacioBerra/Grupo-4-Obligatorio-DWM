@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivitiyService } from '../services/activitiy.service';
+import { ActivitiyService } from '../../services/activitiy.service';
 import { Observable } from 'rxjs';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PropuestaService } from '../services/propuesta.service';
-import { Propuesta } from "../interfaces/propuesta";
+import { PropuestaService } from '../../services/propuesta.service';
+import { Propuesta } from "../../interfaces/propuesta";
 
 @Component({
   selector: 'app-propuesta',
