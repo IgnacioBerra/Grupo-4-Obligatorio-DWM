@@ -44,8 +44,27 @@
             </div>
             <button class="play-button"  (click)="readID()">Play</button>
         </div>
-        <app-show-activities *ngIf="comienzo"></app-show-activities>
+        <!--app-show-activities *ngIf="comienzo"></app-show-activities>-->
+        <!--para ver las actividades (esto debe ir en otro componente e importar con app-nomComp)-->
+        <div class="actividad-tarjeta-container">
+            <div class="actividad-tarjeta" *ngIf="actividades.length > 0">
+                <h3>{{ actividades[0].title }}</h3>
+                <p>{{ actividades[0].description }}</p>
+                <img [src]="actividades[0].image" alt="{{ actividades[0].title }}">
+            
+                <!-- Radio buttons dentro de la tarjeta -->
+                <div>
+                    <input type="radio" id="like" name="feedback" (change)="handleFeedback('like')">
+                    <label for="like">Like</label>
+            
+                    <input type="radio" id="dislike" name="feedback" (change)="handleFeedback('dislike')">
+                    <label for="dislike">Dislike</label>
+            
+                    <input type="radio" id="idk" name="feedback" (change)="handleFeedback('idk')">
+                    <label for="idk">IDK</label>
+                </div>
+            </div>
         </div>
-    
+        <!--para ver las actividades (esto debe ir en otro componente e importar con app-nomComp)-->
     </div>
 </div>

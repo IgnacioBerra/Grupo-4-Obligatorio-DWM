@@ -61,10 +61,11 @@ io.on('connection', socket => {
     });
 
     
-    socket.on("actividad-pantalla", (actividad) =>
+    socket.on("actividad-pantalla", (actividades) =>
     {
         //logica para que con un timeOut vaya emitiendo cada cierto tiempo la 'actividad'
-        
+        //console.log(actividad);
+        socket.emit("mostrar-actividades", actividades);
     });
 
     socket.on('disconnect', () => {

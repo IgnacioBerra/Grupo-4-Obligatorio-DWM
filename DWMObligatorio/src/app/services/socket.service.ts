@@ -20,6 +20,7 @@ export class SocketService {
 
   actividad : Activity[] | undefined;
   propuesta: Propuesta | undefined;
+ 
 
    constructor(private proposalService: PropuestaService, private activityService: ActivitiyService) { 
       //this.socket = io('http://localhost:3333');
@@ -35,22 +36,26 @@ export class SocketService {
 
      this.retrieveStoredUserCount();
     //this.escucharInicioActividad();
+    
     }
 
     public escucharInicioActividad(){
-      this.socket.on('iniciarActividad', (propuestaID:string) => {        
+      this.socket.on('iniciarActividad', (propuestaID:string) => {
+
+        //this.imprimirElementosConRetraso(this.miArray, 0);     
+
         const accessToken = localStorage.getItem('access_token');
         if(accessToken){
-          this.proposalService.getPropuesta( accessToken , propuestaID).subscribe( (data: Propuesta) => { //suscribe porq es un Observable
+          this.proposalService.getPropuesta( accessToken , propuestaID).subscribe( async (data: Propuesta) => { //suscribe porq es un Observable
             this.propuesta = data;
             console.log(this.propuesta);
+            
+            //para mostrar tarjetas en html
             if (this.propuesta && this.propuesta.activities) {
-              this.propuesta.activities.forEach(activity => {
-                console.log('Actividad:', activity); //actividad  
-                //llamar a un metodo , pasandole por parametro la actividad 
-                this.socket.emit("actividad-pantalla", activity);
-              });
+              this.socket.emit("actividad-pantalla", this.propuesta.activities);
+              this.showActividad();
             }
+            //para mostrar tarjetas en html
           },
           error => {
             console.error('Error al obtener la propuesta:', error);
@@ -60,6 +65,13 @@ export class SocketService {
       });
     }
 
+    //para mostrar tarjetas en html
+    public showActividad(){
+      this.socket.on("mostrar-actividades", (actividades: any, index :number) => {
+        this.imprimirActividadesConRetraso(actividades, 0)
+      })
+    }
+    //para mostrar tarjetas en html
 
 
   increaseUserCount(id: string): void {
@@ -91,5 +103,21 @@ export class SocketService {
   {
     this.socket.broadcast.emit("iniciarActividad",actividadId)
   }
+
+  //para mostrar tarjetas en html
+  public imprimirActividadesConRetraso(actividades: Activity[], index: number): void {
+    if (actividades && index < actividades.length) {
+      setTimeout(() => {
+        // Actualiza la actividad actual
+        this._actividadActual.next(actividades[index]);
+        this.imprimirActividadesConRetraso(actividades, index + 1);
+      }, 10000); // 10 segundos
+    }
+  }
+  
+  // Agrega un nuevo BehaviorSubject para notificar al componente SalaEsperaComponent
+  private _actividadActual: BehaviorSubject<Activity | null> = new BehaviorSubject<Activity | null>(null);
+  public actividadActual$ = this._actividadActual.asObservable();
+  //para mostrar tarjetas en html
 
 }
