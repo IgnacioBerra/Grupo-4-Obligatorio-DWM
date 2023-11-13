@@ -30,3 +30,25 @@
     background-color: rgb(196, 102, 255);
     border-color: white;
   }
+
+
+    /* Estilo para el contenedor de la tarjeta */
+.actividad-tarjeta-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Toma el 100% de la altura de la pantalla */
+  }
+  
+  /* Estilo para la tarjeta */
+  .actividad-tarjeta {
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente blanco */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+    text-align: center;
+    max-width: 400px; /* Ancho máximo de la tarjeta */
+    width: 100%; /* Ancho del 100% para dispositivos pequeños */
+    margin: auto; /* Margen automático para centrar horizontalmente */
+  }
+  

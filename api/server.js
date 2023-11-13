@@ -12,7 +12,6 @@ db.once('open', () => console.log("connected to database"));
 app.use(express.json());
 
 app.use(cors({
-    // origin: 'http://localhost:4200',
     origin: `http://${process.env.URL_IP}:4200`,
 }));
 
@@ -43,41 +42,43 @@ http.listen(3000, () => {
 const usuariosConectados = new Map();
 
 io.on('connection', socket => {
-  let uniqueId;
+    let uniqueId;
 
-  socket.on('usuario-conectado', (uuid) => {
-    console.log('User connected:', uuid);
-    usuariosConectados.set(uuid, true);
-    uniqueId = uuid;
-    io.emit('user-count', usuariosConectados.size); // Envía el recuento actual de usuarios conectados
-  });
+    socket.on('usuario-conectado', (uuid) => {
+        console.log('User connected:', uuid);
+        usuariosConectados.set(uuid, true);
+        uniqueId = uuid;
+        io.emit('user-count', usuariosConectados.size); // Envía el recuento actual de usuarios conectados
+    });
 
     socket.on('nuevo-usuario', (userName) => {
         socket.emit('add-usuario', userName);
     });
 
-    socket.on("iniciarJuego", (actividadId) => {        
-        socket.emit("iniciarActividad",actividadId); //probar hacer broadcast
+    socket.on("iniciarJuego", (actividadId) => {
+        socket.broadcast.emit("iniciarActividad", actividadId);
     });
 
-    
-    socket.on("actividad-pantalla", (actividades) =>
-    {
+
+    socket.on("actividad-pantalla", (actividades) => {
         //logica para que con un timeOut vaya emitiendo cada cierto tiempo la 'actividad'
         //console.log(actividad);
         socket.emit("mostrar-actividades", actividades);
     });
 
     socket.on('disconnect', () => {
-        if(uniqueId){
-        console.log('User disconnected', uniqueId);
-        // Elimina al usuario desconectado del mapa
-        usuariosConectados.delete(uniqueId);
-        
-        io.emit('user-count', usuariosConectados.size); // Envía el recuento actual de usuarios conectados
-        }
-      });
+        if (uniqueId) {
+            console.log('User disconnected', uniqueId);
+            // Elimina al usuario desconectado del mapa
+            usuariosConectados.delete(uniqueId);
 
-    
+            io.emit('user-count', usuariosConectados.size); // Envía el recuento actual de usuarios conectados
+        }
+    });
+
+
 });
 
+function start(){
+    
+}

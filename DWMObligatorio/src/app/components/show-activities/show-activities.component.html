@@ -1,23 +1,23 @@
-<div class="fondo">
-    <div class="container">
+<!-- <div class="actividad-tarjeta-container"></div>
         <div class="row justify-content-md-center">
             <div class="col-6">
-                <div class="card shadow" *ngFor="let activity of activities | async">
-                    <div class="card-header">
-                        Featured
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                    <div class="card-footer text-body-secondary">
-                        2 days ago
-                    </div>
-                </div>
-            </div>
+                 <div class="actividad-tarjeta" *ngIf="actividades.length > 0">
+                <h3>{{ actividades[0].title }}</h3>
+                <p>{{ actividades[0].description }}</p>
+                <img [src]="actividades[0].image" alt="{{ actividades[0].title }}">
+           
+        
+        <div>
+            <input type="radio" id="like" name="feedback" (change)="handleFeedback('like')">
+            <label for="like">Like</label>
+    
+            <input type="radio" id="dislike" name="feedback" (change)="handleFeedback('dislike')">
+            <label for="dislike">Dislike</label>
+    
+            <input type="radio" id="idk" name="feedback" (change)="handleFeedback('idk')">
+            <label for="idk">IDK</label>
         </div>
-        <div class="row justify-content-md-center">
+         <div class="row justify-content-md-center">
             <div class="col-6 text-center">
                 <div class="vote shadow rounded">
                     <input type="radio" class="btn-check" name="options-base" id="option5" autocomplete="off">
@@ -30,6 +30,28 @@
                     <label class="btn btn-vote" for="option8">Not interested</label>
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
+</div> -->
+
+ <div class="actividad-tarjeta-container"> 
+    <!-- <app-show-activities *ngIf="comienzo"></app-show-activities> -->
+     <div class="actividad-tarjeta" *ngIf="actividades.length > 0">
+        <h3>{{ actividades[0].title }}</h3>
+        <p>{{ actividades[0].description }}</p>
+        <img [src]="actividades[0].image" alt="{{ actividades[0].title }}">
+    
+    
+        <div>
+            <input type="radio" class="btn-check" name="options-base" id="option5" autocomplete="off">
+            <label class="btn btn-vote" for="option5">Like</label>
+            
+            <input type="radio" class="btn-check" name="options-base" id="option6" autocomplete="off">
+            <label class="btn btn-vote" for="option6">Dislike</label>
+            
+            <input type="radio" class="btn-check" name="options-base" id="option8" autocomplete="off">
+            <label class="btn btn-vote" for="option8">Not interested</label>
+        </div>
+    </div> 
 </div>
+<!--para ver las actividades (esto debe ir en otro componente e importar con app-nomComp)-->

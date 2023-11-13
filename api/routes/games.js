@@ -3,7 +3,6 @@ const qrcode = require('qrcode');
 const router = express.Router();
 
 
-
 router.get('/', async  (req, res) => {
 
   try {
@@ -24,5 +23,10 @@ router.get('/', async  (req, res) => {
     res.status(500).send('Error al generar el código QR');
   }
 });
+
+router.post('/start',(req, res) => {
+  start();
+} )
+
 
 module.exports = router;
