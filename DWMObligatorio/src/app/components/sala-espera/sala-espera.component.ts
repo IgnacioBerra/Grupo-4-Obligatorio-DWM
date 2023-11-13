@@ -5,6 +5,7 @@ import { SocketService } from '../../services/socket.service';
 //para mostrar tarjetas en html (debe ir en otro componente)
 import { Activity } from 'src/app/interfaces/activity';
 import { Subscription } from 'rxjs';
+import { PropuestaService } from 'src/app/services/propuesta.service';
 //para mostrar tarjetas en html (debe ir en otro componente)
 
 @Component({
@@ -19,9 +20,8 @@ export class SalaEsperaComponent implements OnInit {
    comienzo: boolean = false;
 
 
-  constructor(private AuthService: AuthServiceService, private socket: SocketService) {
+  constructor(private AuthService: AuthServiceService, private socket: SocketService, private propuesta: PropuestaService) {
 
-    
 
     this.socket.userCount$.subscribe(count => {
       this.usuarios = count;
@@ -46,31 +46,35 @@ export class SalaEsperaComponent implements OnInit {
      const activityID = localStorage.getItem('propuestaId');
      if (activityID != null) {
        console.log(activityID);
-       this.fetchPost(activityID);
+      //  this.fetchPost(activityID);
+      this.propuesta.postStart(activityID);
        this.comienzo = true;
      }
    }
 
   
   
-  async fetchPost(actividadID:String) {
+  // async fetchPost(actividadID:String) {
     
-    try {
-      const post = await fetch("http://localhost:3000/game/start", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(actividadID),
-      });
-      const response = await post.json();
-    }
-    catch (error) {
-      console.error(error)
-    }
+  //   try {
+  //     const post = await fetch("http://localhost:3000/game/start", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(actividadID),
+  //     });
+  //     const response = await post.json();
+  //   }
+  //   catch (error) {
+  //     console.error(error)
+  //   }
 
 
-  }
+  // }
+  // fetchPost(id: any){
+  //   this.propuesta.postStart(id);
+  // }
 
 
 }

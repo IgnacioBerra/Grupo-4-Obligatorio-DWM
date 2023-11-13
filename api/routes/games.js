@@ -1,12 +1,11 @@
-
 const start = require('../server');
+
 const express = require('express');
 const qrcode = require('qrcode');
 const router = express.Router();
 
 
 router.get('/', async  (req, res) => {
-
   try {
   const redirectUrl = `http://${process.env.URL_IP}:4200/game`; 
 
@@ -26,9 +25,13 @@ router.get('/', async  (req, res) => {
   }
 });
 
-router.post('/start',(req, res) => {
-  start(req.body);
-} )
+// router.post('/start', (req, res) => {
+
+//   console.log("AAAAAAAAAAAAAAAAAAAA");
+//   console.log(req.body.id);
+//   console.log("AAAAAAAAAAAAAAAAAAA");
+//   start(req.body);
+// });
 
 
 module.exports = router;

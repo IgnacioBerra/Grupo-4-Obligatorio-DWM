@@ -50,14 +50,6 @@ export class SocketService {
       })
     }
 
-    //para mostrar tarjetas en html
-    private showActividad(){
-       this.socket.on("mostrar-actividades", (actividades: any) => {
-         this.imprimirActividadesConRetraso(actividades, 0);
-       });
-    }
-    //para mostrar tarjetas en html
-
 
   increaseUserCount(id: string): void {
     this._userCount.next(this._userCount.getValue() + 1);
@@ -76,28 +68,5 @@ export class SocketService {
     this.socket.emit('usuario-conectado', id);
   }
 
-
-
-  public iniciarJuego(propuestaId:string){      
-    this.socket.emit("iniciarJuego", propuestaId);
-  
-}
-
-  public iniciarActividad(actividadId:string)
-  {
-    this.socket.broadcast.emit("iniciarActividad",actividadId)
-  }
-
-  //para mostrar tarjetas en html
-  public imprimirActividadesConRetraso(actividades: Activity[], index: number): void {
-    if (actividades && index < actividades.length) {
-      setTimeout(() => {
-        // Actualiza la actividad actual
-        this._actividadActual.next(actividades[index]);
-        this.imprimirActividadesConRetraso(actividades, index + 1);
-      }, 2000); // 10 segundos
-    }
-  }
-  
 
 }

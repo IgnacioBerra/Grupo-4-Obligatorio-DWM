@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
+const router = express.Router();
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
 const db = mongoose.connection;
@@ -83,31 +84,36 @@ io.on('connection', socket => {
 
 });
 
-function start(propuestaID){
-    obtenerPropuesta(propuestaID)
+gamesRouter.post('/start', (req, res) => {
+    start(req.body.id);
+  });
 
-    
+ function start(propuestaID){
+     obtenerPropuesta(propuestaID);
 }
 
-function obtenerPropuesta(propuestaID)
-{
-    let proposal = Proposal.findById(propuestaID);
-    if(proposal != null)
-    {
-        let activities = proposal.activities;
-        imprimirActividadesConRetraso(activities,0)
-     
+async function obtenerPropuesta(propuestaID) {
+    try {
+        let proposal = await Proposal.findById(propuestaID);
+
+        if (proposal != null) {
+            let activities = proposal.activities;
+            imprimirActividadesConRetraso(activities, 0);
+
+        }
+    } catch (error) {
+        console.log(error);
     }
-    
 }
 
-function imprimirActividadesConRetraso(activities,index)
-{
-    actividadActual = activities[index];
-    setTimeout(() => {
-        io.emit("pasarActividad",actividadActual);
-        this.imprimirActividadesConRetraso(activities,index+1)
-    },5000) // Pasa cada 5 segundos. 
+function imprimirActividadesConRetraso(activities, index) {
+    if (index < activities.length) {
+        actividadActual = activities[index];
+        setTimeout(() => {
+            io.emit("pasarActividad", actividadActual);
+            imprimirActividadesConRetraso(activities, index + 1)
+        }, 5000) // Pasa cada 5 segundos. 
+    }
 }
 
-module.exports=start;
+module.exports = start;
