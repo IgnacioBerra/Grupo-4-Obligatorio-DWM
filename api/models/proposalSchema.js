@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const activity = require('./activitiesSchema'); 
 
 const proposalSchema = new mongoose.Schema({
     id: {
@@ -17,7 +18,7 @@ const proposalSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    activities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Activity' }]
+    activities: [`${activity}`]
 });
 
 module.exports = mongoose.model('Proposals', proposalSchema);
