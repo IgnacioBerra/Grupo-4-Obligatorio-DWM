@@ -1,3 +1,5 @@
+
+const start = require('../server');
 const express = require('express');
 const qrcode = require('qrcode');
 const router = express.Router();
@@ -25,7 +27,7 @@ router.get('/', async  (req, res) => {
 });
 
 router.post('/start',(req, res) => {
-  start();
+  start(req.body);
 } )
 
 

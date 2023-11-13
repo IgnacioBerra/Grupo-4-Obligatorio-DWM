@@ -1,4 +1,5 @@
 require('dotenv').config();
+const Proposal = require('./models/proposalSchema.js');
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -11,8 +12,11 @@ db.once('open', () => console.log("connected to database"));
 
 app.use(express.json());
 
+
+
 app.use(cors({
     origin: `http://${process.env.URL_IP}:4200`,
+    methods:"GET,PUT,POST"
 }));
 
 const proposalRouter = require('./routes/proposal.js');
@@ -28,7 +32,7 @@ app.use('/game', gamesRouter);
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
     cors: {
-        // origin: 'http://localhost:4200',
+     // origin: 'http://localhost:4200',
         origin: `http://${process.env.URL_IP}:4200`,
         methods: ["GET", "POST"]
     }
@@ -79,6 +83,31 @@ io.on('connection', socket => {
 
 });
 
-function start(){
+function start(propuestaID){
+    obtenerPropuesta(propuestaID)
+
     
 }
+
+function obtenerPropuesta(propuestaID)
+{
+    let proposal = Proposal.findById(propuestaID);
+    if(proposal != null)
+    {
+        let activities = proposal.activities;
+        imprimirActividadesConRetraso(activities,0)
+     
+    }
+    
+}
+
+function imprimirActividadesConRetraso(activities,index)
+{
+    actividadActual = activities[index];
+    setTimeout(() => {
+        io.emit("pasarActividad",actividadActual);
+        this.imprimirActividadesConRetraso(activities,index+1)
+    },5000) // Pasa cada 5 segundos. 
+}
+
+module.exports=start;

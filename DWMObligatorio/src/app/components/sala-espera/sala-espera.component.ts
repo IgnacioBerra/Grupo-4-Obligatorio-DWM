@@ -18,23 +18,10 @@ export class SalaEsperaComponent implements OnInit {
    usuarios: number = 0;
    comienzo: boolean = false;
 
-  //para mostrar tarjetas en html (debe ir en otro componente)
-  // actividades: Activity[] = [];
-  // selectedOptions: { [activityId: string]: string } = {};
-  // actividadesSubscription: Subscription | undefined;
-  // selectedFeedback: string | null = null;
-  //para mostrar tarjetas en html (debe ir en otro componente)
 
   constructor(private AuthService: AuthServiceService, private socket: SocketService) {
 
-    // //para mostrar tarjetas en html (debe ir en otro componente)
-    // this.socket.actividadActual$.subscribe((actividad) => {
-    //   if (actividad) {
-    //     this.actividades = [actividad];
-    //     this.resetFeedbackSelection(); // Reinicia la selección de radio button
-    //   }
-    // });
-    //para mostrar tarjetas en html (debe ir en otro componente)
+    
 
     this.socket.userCount$.subscribe(count => {
       this.usuarios = count;
@@ -53,38 +40,39 @@ export class SalaEsperaComponent implements OnInit {
     });
   }
 
-  // //para mostrar tarjetas en html (debe ir en otro componente)
-  // ngOnDestroy(): void {
-  //   // Desuscribirse para evitar pérdida de memoria
-  //   this.actividadesSubscription?.unsubscribe();
-  // }
-  // //para mostrar tarjetas en html (debe ir en otro componente)
 
    readID() {
      // LEO DEL LOCALSTORAGE CUAL ES LA ACTIVIDAD QUE SE HABIA SELECCIONADO PREVIAMENTE PARA DESPUES JUGARLA.
      const activityID = localStorage.getItem('propuestaId');
      if (activityID != null) {
        console.log(activityID);
-       this.socket.iniciarJuego(activityID);
+       this.fetchPost(activityID);
        this.comienzo = true;
      }
    }
 
-  // //para mostrar tarjetas en html (debe ir en otro componente)
-  // handleFeedback(feedbackType: string): void {
-  //   console.log(`Feedback: ${feedbackType}`);
-  //   // Realiza acciones adicionales según el tipo de feedback seleccionado
-
-  //   // Guarda el estado de selección
-  //   this.selectedFeedback = feedbackType;
-  // }
-
-  // // Método para reiniciar la selección
-  // resetFeedbackSelection(): void {
-  //   this.selectedFeedback = null;
-  // }
-  //para mostrar tarjetas en html (debe ir en otro componente)
   
+  
+  async fetchPost(actividadID:String) {
+    
+    try {
+      const post = await fetch("http://localhost:3000/game/start", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(actividadID),
+      });
+      const response = await post.json();
+    }
+    catch (error) {
+      console.error(error)
+    }
+
+
+  }
+
+
 }
 
     

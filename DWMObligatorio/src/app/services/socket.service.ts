@@ -45,30 +45,9 @@ export class SocketService {
     }
 
     public escucharInicioActividad(){
-      this.socket.on('iniciarActividad', (propuestaID:string) => {
-
-        //this.imprimirElementosConRetraso(this.miArray, 0);     
-
-        const accessToken = localStorage.getItem('access_token');
-        if(accessToken){
-          this.proposalService.getPropuesta( accessToken , propuestaID).subscribe( async (data: Propuesta) => { //suscribe porq es un Observable
-            this.propuesta = data;
-            //console.log(this.propuesta);
-            
-            //para mostrar tarjetas en html
-            if (this.propuesta && this.propuesta.activities) {
-              this.socket.emit("actividad-pantalla", this.propuesta.activities);
-              this.showActividad();
-              //this.imprimirActividadesConRetraso(this.propuesta.activities, 0);
-            }
-            //para mostrar tarjetas en html
-          },
-          error => {
-            console.error('Error al obtener la propuesta:', error);
-          }
-        );              
-        }  
-      });
+      this.socket.on('pasarActividad',(actividadActual:Activity) =>{
+        this._actividadActual.next(actividadActual);
+      })
     }
 
     //para mostrar tarjetas en html
