@@ -43,13 +43,13 @@
     
     
         <div>
-            <input type="radio" class="btn-check" name="options-base" id="option5" autocomplete="off">
+            <input type="radio" class="btn-check" name="options-base" id="option5" autocomplete="off" onclick="votar('Like', '${actividades[0]}')">
             <label class="btn btn-vote" for="option5">Like</label>
             
-            <input type="radio" class="btn-check" name="options-base" id="option6" autocomplete="off">
+            <input type="radio" class="btn-check" name="options-base" id="option6" autocomplete="off" onclick="votar('Dislike', '${actividades[0].id}')">
             <label class="btn btn-vote" for="option6">Dislike</label>
             
-            <input type="radio" class="btn-check" name="options-base" id="option8" autocomplete="off">
+            <input type="radio" class="btn-check" name="options-base" id="option8" autocomplete="off" onclick="votar('Not interested', '${actividades[0].id}')">
             <label class="btn btn-vote" for="option8">Not interested</label>
         </div>
     </div> 

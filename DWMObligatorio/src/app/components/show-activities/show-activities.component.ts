@@ -21,8 +21,6 @@ export class ShowActivitiesComponent {
     this.socket.actividadActual$.subscribe((actividad) => {
       if (actividad) {
         this.actividades = [actividad];
-        
-       
       }
     });
 
@@ -37,7 +35,51 @@ export class ShowActivitiesComponent {
     this.actividadesSubscription?.unsubscribe();
   }
 
+  
+  votar(voto: string, actividad: Activity){
 
+    let data = {
+      idSesion:'',
+      idPropuesta:localStorage.getItem('propuestaId'),
+      fechaDeJuego: new Date(),
+      actividad: actividad.title,
+      voto: actividad.title + voto,
+    };
+    try {
+      await this.fetchPost(data);
+    }
+    catch (error) {
+      console.error(error);
+    }
 
+  }
+
+  async fetchPut(UserCredentials: userCredentials) {
+
+    try {
+      const post = await fetch("http://localhost:3000/game", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(),
+      });
+      const response = await post.json();
+
+      console.log(response)
+      if (response.valido == true) {
+      
+      } else {
+
+        console.log("NO ACCEDISTE FINALMENTE.")
+
+        this.router.navigate(['/']);
+      }
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+  
   
 }
