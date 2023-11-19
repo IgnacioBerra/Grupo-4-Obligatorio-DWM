@@ -23,6 +23,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { SalaEsperaComponent } from './components/sala-espera/sala-espera.component';
 import { ShowActivitiesComponent } from './components/show-activities/show-activities.component';
 import { GameUserComponent } from './components/game-user/game-user.component';
+import { RankingComponent } from './ranking/ranking.component';
 
 @NgModule({
   declarations: [
