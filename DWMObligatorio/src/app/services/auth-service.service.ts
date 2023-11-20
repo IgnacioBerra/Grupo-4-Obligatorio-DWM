@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environment/environment';
 
@@ -21,8 +21,11 @@ export class AuthServiceService {
     });
   }
 
-  getQrFilePath(){
-    return this.http.get(`${this.baseUrl}/game`, { responseType: 'blob' });
+  getQrFilePath(token: string, sessionId: string) :Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<any>(`${this.baseUrl}/game?sessionId=${sessionId}`, { headers });
   }
 
 }

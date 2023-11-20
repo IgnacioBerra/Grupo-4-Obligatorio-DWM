@@ -6,7 +6,7 @@ const gameSchema = new mongoose.Schema({
         required: true
     },
     idPropuesta: {
-        type: Number,
+        type: String,
         required: true
     },
     fechaDeJuego: {
@@ -17,10 +17,11 @@ const gameSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    voto: {
-        type: String,
+    votos: {
+        type: Array, 
+        of: Number, 
         required: true
-    } 
+    }
 });
 
 module.exports = mongoose.model('Game', gameSchema);

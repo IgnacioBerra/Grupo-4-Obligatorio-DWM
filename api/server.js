@@ -24,6 +24,7 @@ const proposalRouter = require('./routes/proposal.js');
 const activityRouter = require('./routes/activities.js');
 const loginRouter = require('./routes/login.js');
 const gamesRouter = require('./routes/games.js');
+const authenticateToken = require('./authMiddleware.js');
 
 app.use('/proposal', proposalRouter);
 app.use('/activities', activityRouter);
@@ -35,7 +36,8 @@ const io = require('socket.io')(http, {
     cors: {
      // origin: 'http://localhost:4200',
         origin: `http://${process.env.URL_IP}:4200`,
-        methods: ["GET", "POST"]
+        methods: "GET,PUT,POST,PATCH,DELETE",
+        allowedHeaders: ['Content-Type', 'Authorization'],
     }
 });
 
@@ -84,7 +86,7 @@ io.on('connection', socket => {
 
 });
 
-gamesRouter.post('/start', (req, res) => {
+gamesRouter.post('/start', authenticateToken ,(req, res) => {
     start(req.body.id);
   });
 
