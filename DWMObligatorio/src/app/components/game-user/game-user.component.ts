@@ -24,7 +24,7 @@ export class GameUserComponent {
     const storedUserId = localStorage.getItem('userId');
 
     // Generar un nuevo ID si no existe o no es válido
-    if (!storedUserId || !this.isValidUUID(storedUserId)) {
+    if (!storedUserId) {
       this.userId = uuidv4();
       localStorage.setItem('userId', this.userId); // Guardar el nuevo ID en el almacenamiento local
     } else {
@@ -33,11 +33,4 @@ export class GameUserComponent {
 
     this.socket.increaseUserCount(this.userId); // Incrementar cada vez que se conecta un usuario
   }
-
-  // ESTO es para verificar si un string es un UUID válido
-  isValidUUID(uuid: string): boolean {
-    const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
-    return uuidRegex.test(uuid);
-  }
-
 }
