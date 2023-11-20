@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GameUserComponent } from './components/game-user/game-user.component';
 import { FormAdminComponent } from './components/form-admin/form-admin.component';
 import { AdminPageComponent } from "./components/admin-page/admin-page.component";
 import { SalaEsperaComponent } from './components/sala-espera/sala-espera.component';
@@ -16,7 +15,7 @@ const routes: Routes = [
   { path: 'game', component: SalaEsperaComponent},
 
   { path: 'ranking', component: RankingComponent },
-  { path: 'game-user', component: GameUserComponent}
+  { path: 'game-user', component: GameUserComponent},
   { path: 'add-activity', component: AddActivityComponent},
   { path: 'add-proposal', component: PropuestaComponent}
 ];
