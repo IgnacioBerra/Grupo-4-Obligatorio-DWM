@@ -15,7 +15,6 @@ export class ActivitiyService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    
     return this.http.get<Activity[]>(this.activitiesUrl, { headers });
   }
 

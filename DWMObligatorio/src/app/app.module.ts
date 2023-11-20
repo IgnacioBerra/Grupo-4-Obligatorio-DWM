@@ -24,6 +24,8 @@ import { SalaEsperaComponent } from './components/sala-espera/sala-espera.compon
 import { ShowActivitiesComponent } from './components/show-activities/show-activities.component';
 import { GameUserComponent } from './components/game-user/game-user.component';
 import { RankingComponent } from './ranking/ranking.component';
+import { AddActivityComponent } from './components/add-activity/add-activity.component';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { RankingComponent } from './ranking/ranking.component';
     AdminPageComponent,
     SalaEsperaComponent,
     ShowActivitiesComponent,
-    GameUserComponent
+    GameUserComponent,
+    AddActivityComponent
   ],
   imports: [
     FormsModule,
