@@ -1,38 +1,52 @@
-<h1>propuestas</h1>
-<ul>
-  <li *ngFor="let propuesta of propuestas">
-    <p>{{propuesta.id}}</p>
-    <p>{{propuesta.image}}</p>
-    <p>{{propuesta.title}}</p>
-    <button (click)="deletePropuesta('6541206551391fd5288a7dcb')">Eliminar Propuesta</button>
-</ul>
-
-<div>
-  <!-- <button (click)="postNewPropuesta()">Crear Nueva Propuesta</button>-->
-  <!--<button (click)="updateExistingPropuesta()">Actualizar Propuesta</button>-->
-</div>
-
-<!-- ***********FORMULARIO AGREGAR PROPUESTA*********** -->
-<div class="container">
-  <h2>Agregar una nueva propuesta</h2>
-  <div>
-  <form (ngSubmit)="onSubmit()" #propuestaForm="ngForm">
-    <div class="form-group">
-      <label for="title">Título</label>
-      <input type="text" class="form-control" id="title" name="title" [(ngModel)]="newPropuesta.title" required>
+<div class="fondo">
+  <div class="container">
+    <div class="content-form rounded shadow">
+      <div class="row mt-4 justify-content-center">
+        <div class="col-8 text-center">
+          <h2>Agregar una nueva propuesta</h2>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-8">
+          <form (ngSubmit)="onSubmit()" #propuestaForm="ngForm">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="title" name="title" [(ngModel)]="newPropuesta.title" required
+                placeholder="Titulo propuesta">
+              <label for="title">Titulo propuesta</label>
+            </div>
+            <div class="form-floating mb-3">
+              <textarea class="form-control" placeholder="Leave a comment here" id="description" name="description"
+                [(ngModel)]="newPropuesta.description" required></textarea>
+              <label for="description">Descripción</label>
+            </div>
+            <div class="input-group input-group-lg mb-3">
+              <input type="file" class="form-control fileInput" id="image" name="image" [(ngModel)]="newPropuesta.image"
+                required>
+            </div>
+            <div class="actividades" *ngFor="let actividad of activities; let i = index">
+              <div class="form-check">
+                <input class="form-check-input chkActividades" type="checkbox" [id]="'flexCheckDefault' + i"
+                  (change)="estadoActividad(actividad)">
+                <label class="form-check-label tarj" [for]="'flexCheckDefault' + i">
+                  <div class="mostrarActividad rounded shadow">
+                    <div class="row">
+                      <div class="col">
+                        <h1>{{actividad.title}}</h1>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <p class="lead">{{actividad.description}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Propuesta</button>
+          </form>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="description">Descripción</label>
-      <textarea class="form-control" id="description" name="description" [(ngModel)]="newPropuesta.description" required></textarea>
-    </div>
-    <div class="form-group">
-      <label for="image">URL de la imagen</label>
-      <input type="text" class="form-control" id="image" name="image" [(ngModel)]="newPropuesta.image" required>
-    </div>
-    <div class="form-group">
-      <label for="activities">Actividades</label>
-      <input type="text" class="form-control" id="activities" name="activities" [(ngModel)]="newPropuesta.activities" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Agregar Propuesta</button>
-  </form>
+  </div>
 </div>

@@ -28,8 +28,6 @@ export class PropuestaService {
     );
     
   }
-  
-
 
   getPropuestas(token: string): Observable<Propuesta[]> {
     // Agrega el token de autenticación en la cabecera de la solicitud
