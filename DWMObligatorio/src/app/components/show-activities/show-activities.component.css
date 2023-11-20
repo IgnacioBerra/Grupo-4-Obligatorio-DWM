@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+
 .fondo {
     width: 100%;
     height: 100%;
@@ -8,47 +10,46 @@
     background: radial-gradient(circle, rgba(196, 102, 255, 1) 0%, rgba(14, 4, 160, 1) 100%);
 }
 
-.card{
+.card {
     margin-top: 80px;
 }
 
-.vote{
+.vote {
     margin-top: 15px;
     background-color: white;
     width: 100%;
     height: 90px;
 }
 
-.btn-vote{
+
+.btn-vote {
     padding: 10px;
-    width: 150px;
+    width: 120px;
     margin-right: 10px;
     margin-top: 22px;
+    font-size: 13px;
 }
 
-.btn-check:checked + .btn-vote {
+.btn-check:checked+.btn-vote {
     background-color: rgb(196, 102, 255);
     border-color: white;
-  }
+}
 
 
-    /* Estilo para el contenedor de la tarjeta */
 .actividad-tarjeta-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Toma el 100% de la altura de la pantalla */
-  }
-  
-  /* Estilo para la tarjeta */
-  .actividad-tarjeta {
-    background-color: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente blanco */
+    margin-top: 10%;
+}
+
+.actividad-tarjeta {
+    z-index: 2;
+    background-color: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     text-align: center;
-    max-width: 400px; /* Ancho máximo de la tarjeta */
-    width: 100%; /* Ancho del 100% para dispositivos pequeños */
-    margin: auto; /* Margen automático para centrar horizontalmente */
-  }
-  
+    width: 100%;
+}
+
+.tituloActividad {
+    font-family: 'Fjalla One', sans-serif;
+}

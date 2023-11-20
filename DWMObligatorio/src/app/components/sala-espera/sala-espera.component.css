@@ -1,85 +1,61 @@
-.fondo{
+.fondo {
     width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: linear-gradient(to bottom, #0e04a0, #c466ff);
-}
-
-.custom-shape-divider-top-1698451523 {
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-}
-
-.custom-shape-divider-top-1698451523 svg {
-    position: relative;
-    display: block;
-    width: calc(111% + 1.3px);
-    height: 194px;
-}
-
-.custom-shape-divider-top-1698451523 .shape-fill {
-    fill: #5C0CF6;
-}
-
-.custom-shape-divider-bottom-1698451617 {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    transform: rotate(180deg);
-}
-
-.custom-shape-divider-bottom-1698451617 svg {
-    position: relative;
-    display: block;
-    width: calc(111% + 1.3px);
-    height: 194px;
-}
-
-.custom-shape-divider-bottom-1698451617 .shape-fill {
-    fill: #882fc0;
+    background: rgb(196, 102, 255);
+    background: radial-gradient(circle, rgba(196, 102, 255, 1) 0%, rgba(14, 4, 160, 1) 100%);
 }
 
 .play-button {
-    position: fixed;
-    bottom: 20px; /* Ajusta la distancia desde la parte inferior según sea necesario */
-    right: 20px; /* Ajusta la distancia desde la derecha según sea necesario */
-    z-index: 9999; /* Asegúrate de que el z-index sea mayor que el de otros elementos para que aparezca encima de ellos */
-    width: 80px; /* Ajusta el ancho según tus necesidades */
-    height: 40px; /* Ajusta la altura según tus necesidades */
-    background-color: #4CAF50; /* Ajusta el color de fondo según tus necesidades */
-    color: white; /* Ajusta el color del texto según tus necesidades */
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    background-color: #882fc0;
+    padding: 5px;
+    width: 100%;
     cursor: pointer;
+    color: white;
 }
 
-.overlay {
-    position:fixed; 
-    top: 5px; 
-    left: 10px; 
-    width: 70%;
-    
-}
-  
-  .ex {
-    background: rgba(252, 5, 5, 0.5); /* Establece un fondo transparente con un color oscuro (ajusta el valor alfa según sea necesario) */    
-  }
 
-  .lead {
-    padding: 10px;
-    margin: 5px;
-  }
+.content-div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: -40px;
+    padding: 15px;
+    width: 40%;
+    border-radius: 10px;
+    background: rgba(217, 217, 217, 0.289);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(2px);
+    color: white;
+
+}
+
+.qrCode {
+    width: 250px;
+    height: 250px;
+}
+
+
+.usuariosConectados {
+    overflow-y: auto;
+    height: 250px;
+}
+
+.usuariosConectados::-webkit-scrollbar {
+    height: 8px;
+    width: 10px;
+}
+
+.usuariosConectados::-webkit-scrollbar-track {
+    /* background-color: rgba(0, 0, 0, 0.3);*/
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0);
+}
+
+.usuariosConectados::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.3);
+    outline: 1px solid rgba(0, 0, 0, 0.3);
+}
