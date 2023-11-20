@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+
+.fondo {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to bottom, #0e04a0, #c466ff);
+}
+
+.volver{
+    color: white;
+}
+.volver:hover{
+    color: rgb(199, 192, 192);
+}
+
+/***********ACTIVIDAD*******************/
+.card {
+    margin-top: 10%;
+
+}
+
+.vote {
+    margin-top: 15px;
+    background-color: white;
+    width: 100%;
+    height: 90px;
+}
+
+.img-preview {
+    height: 270px;
+    width: 230px;
+}
+
+.btnCargar {
+    width: 100%;
+    background-color: #c466ff;
+}
+
+.btn-vote {
+    padding: 10px;
+    width: 120px;
+    margin-right: 10px;
+    margin-top: 22px;
+    font-size: 13px;
+}
+
+.btn-check:checked+.btn-vote {
+    background-color: rgb(196, 102, 255);
+    border-color: white;
+}
+
+
+.actividad-tarjeta-container {
+    margin-top: 10%;
+}
+
+/* Estilo para la tarjeta */
+.actividad-tarjeta {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+}
+
+
+/************FORMULARIO ACTIVIDAD*************/
+.content-form {
+    margin-top: 10%;
+    background-color: white;
+    padding: 20px;
+}
+
+.fileInput {
+    font-size: 15px;
+}
+
+.tituloForm {
+    font-family: 'Fjalla One', sans-serif;
+    
+}

@@ -1,0 +1,75 @@
+<div class="fondo">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a routerLink="/indexAdmin">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                        class="bi mt-4 bi-arrow-left-circle volver" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+                    </svg></a>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="content-form rounded shadow">
+                    <div class="row">
+                        <div class="col text-center">
+                            <h1 class="tituloForm">CREAR ACTIVIDAD</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <form>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                        (input)="onInputChange($event, 'title')"
+                                        placeholder="Ingrese titulo de la actividad">
+                                    <label for="floatingInput">Titulo actividad</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control" (input)="onInputChange($event, 'description')"
+                                        placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                    <label for="floatingTextarea">Descripción</label>
+                                </div>
+                                <div class="input-group input-group-lg mb-3">
+                                    <input type="file" (input)="onInputChange($event, 'image')"
+                                        class="form-control fileInput" id="inputGroupFile01">
+                                </div>
+                                <button type="button" (click)="cargar()" class="btn btnCargar">Cargar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- actividad preview -->
+            <div class="col">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="actividad-tarjeta-container">
+                            <div class="actividad-tarjeta">
+                                <h1>{{ actividadPreview.title }}</h1>
+                                <img class="img-preview mb-3" [src]="actividadPreview.image">
+                                <p>{{ actividadPreview.description }}</p>
+                                <div>
+                                    <input type="radio" class="btn-check" name="options-base" id="option5"
+                                        autocomplete="off">
+                                    <label class="btn btn-vote" for="option5">Like</label>
+
+                                    <input type="radio" class="btn-check" name="options-base" id="option6"
+                                        autocomplete="off">
+                                    <label class="btn btn-vote" for="option6">Dislike</label>
+
+                                    <input type="radio" class="btn-check" name="options-base" id="option8"
+                                        autocomplete="off">
+                                    <label class="btn btn-vote" for="option8">Not interested</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

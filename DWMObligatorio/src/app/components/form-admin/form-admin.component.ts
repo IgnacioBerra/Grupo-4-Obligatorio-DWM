@@ -40,8 +40,6 @@ export class FormAdminComponent {
       console.error(error);
     }
   }
-
-  
   
 
 
