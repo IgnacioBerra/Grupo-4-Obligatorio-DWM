@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+
+.fondo {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to bottom, #0e04a0, #c466ff);
+}
+
+.content-form {
+    background-color: white;
+}
+
+.mostrarActividad {
+    background-color: white;
+    padding: 10px;
+}
+
+
+  
+  .form-check-label {
+
+    cursor: pointer; /* Muestra el cursor como un puntero al pasar sobre el label */
+  }
+  
+  .form-check-label.selected {
+    background-color: #007bff; /* Cambia el color de fondo cuando la actividad está seleccionada */
+    color: #fff; /* Cambia el color del texto cuando la actividad está seleccionada */
+  }

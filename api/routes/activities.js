@@ -16,7 +16,7 @@ router.get('/:id',authenticateToken ,getActivity, (req, res) => {
     res.json(res.activity);
 });
 
-router.post('/', authenticateToken,async (req, res) => {
+router.post('/',async (req, res) => {
     const activity = new Activity({
         title: req.body.title,
         description: req.body.description,
