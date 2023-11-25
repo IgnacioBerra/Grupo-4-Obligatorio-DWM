@@ -4,25 +4,25 @@
       <div class="row">
         <div class="cartas">
           <div class="col" *ngFor="let tarjeta of tarjetas | async">
-            <div class="proposal-card shadow-sm d-flex flex-column ">
+            <div class="proposal-card shadow-sm">
               <div class="row">
-                <div class="col">
-                  <h1>{{tarjeta.title}}</h1>
+                <div class="col text-center">
+                  <h1 class="titleProposal">{{tarjeta.title}}</h1>
                 </div>
               </div>
-              <div class="row">
-                <div class="col">
+              <div class="row justify-content-center">
+                <div class="col-10">
                   <img src="../../assets//SignInImage.jpeg" width="200px" height="200px" class="rounded float-start"
                     alt="...">
                 </div>
               </div>
               <hr>
               <div class="row">
-                <div class="col">
-                  <p class="lead">{{tarjeta.description}}</p>
+                <div class="col-10">
+                  <p>{{tarjeta.description}}</p>
                 </div>
               </div>
-              <div class="row mt-auto">
+              <div class="row align-items-end">
                 <div class="col text-center">
                   <button class="btn btn-play" routerLink="/game" (click)="guardarId(tarjeta._id.toString())">Jugar</button>
                 </div>
