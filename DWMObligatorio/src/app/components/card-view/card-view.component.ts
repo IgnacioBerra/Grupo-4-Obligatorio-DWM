@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Propuesta } from '../../interfaces/propuesta';
 import { PropuestaService } from '../../services/propuesta.service';
 import { Router } from '@angular/router';
+import { getSafePropertyAccessString } from '@angular/compiler';
 @Component({
   selector: 'app-card-view',
   templateUrl: './card-view.component.html',
@@ -23,6 +24,13 @@ export class CardViewComponent implements OnInit {
   {
     localStorage.setItem('propuestaId', actividadId);
     this.router.navigate(['/game']);
+    
+  }
+
+  removeId(actividadId:string)
+  {
+    const accessToken = localStorage.getItem('access_token');
+    this.propuestaService.eliminarPropuesta(accessToken || 'null',actividadId);
     
   }
 
