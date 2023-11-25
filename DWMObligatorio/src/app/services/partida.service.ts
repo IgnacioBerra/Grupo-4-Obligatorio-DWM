@@ -42,17 +42,16 @@ export class PartidaService {
   addVoto(token: string, voto: number, idSesion: string, actividad: string){
     
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
+      'Authorization': `Bearer ${token}`
     });
 
-    let body = {
-      voto,
-      actividad 
+    const body = {
+      voto: voto,
+      actividad: actividad 
     };
 
-    console.log(`${this.gameUrl}/actividades/${idSesion}`);
-    console.log("BODDYYY", { headers });
+    console.log("bodyyy: ", body);
+
 
     this.http.patch(`${this.gameUrl}/actividades/${idSesion}`, body, { headers }).subscribe({
       next: (response) => {
@@ -60,7 +59,7 @@ export class PartidaService {
       },
       error: (error) => {
         console.log(error);
-        console.log(error.error)
+        console.log("ESTE ES EL ERROR", error.error)
       }
     });
   }

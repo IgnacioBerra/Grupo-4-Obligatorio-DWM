@@ -101,7 +101,6 @@ async function obtenerPropuesta(propuestaID) {
         if (proposal != null) {
             let activities = proposal.activities;
             imprimirActividadesConRetraso(activities, 0);
-
         }
     } catch (error) {
         console.log(error);
@@ -114,7 +113,9 @@ function imprimirActividadesConRetraso(activities, index) {
         setTimeout(() => {
             io.emit("pasarActividad", actividadActual);
             imprimirActividadesConRetraso(activities, index + 1)
-        }, 5000) // Pasa cada 5 segundos. 
+        }, 5000) 
+    }else{
+        io.emit('fin-actividades');
     }
 }
 
