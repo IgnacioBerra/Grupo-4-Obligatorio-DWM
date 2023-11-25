@@ -38,24 +38,24 @@ export class SalaEsperaComponent implements OnInit {
     this.sessionId = uuidv4(); //creo el id de 
     console.log("sesion id: ", this.sessionId);
     localStorage.setItem('idSesion', this.sessionId);
-      //this.AuthService.getQrFilePath(this.sessionId).subscribe((img: Blob) => {
-        const accessToken = localStorage.getItem('access_token');
-        this.AuthService.getQrFilePath(accessToken || 'null', this.sessionId).subscribe((response: any) => {
-          this.url = response.qrCodeUrl; // esta es la url del QR
-          const qrCodeBufferBase64: string = response.qrCodeBuffer; 
-        
-          // convirtiendo el buffer del QR de base64(que asi lo envio desde el server) a Blob, para poder crear el objeto, fue la unica manera de poder acceder a la imagen
-          const byteCaracteres = atob(qrCodeBufferBase64); //esta funcion decodifica una cadena de datos base64
-          const byteNumeros = new Array(byteCaracteres.length);
-          for (let i = 0; i < byteCaracteres.length; i++) {
-            byteNumeros[i] = byteCaracteres.charCodeAt(i);
-          }
-          const byteArray = new Uint8Array(byteNumeros);
-          const byteBlob = new Blob([byteArray], { type: 'image/png' });
-        
-          
-        this.imageUrl = URL.createObjectURL(byteBlob);
-        this.socket.retrieveStoredUserCount(); // Recupera el valor almacenado en localStorage       
+    //this.AuthService.getQrFilePath(this.sessionId).subscribe((img: Blob) => {
+    const accessToken = localStorage.getItem('access_token');
+    this.AuthService.getQrFilePath(accessToken || 'null', this.sessionId).subscribe((response: any) => {
+      this.url = response.qrCodeUrl; // esta es la url del QR
+      const qrCodeBufferBase64: string = response.qrCodeBuffer;
+
+      // convirtiendo el buffer del QR de base64(que asi lo envio desde el server) a Blob, para poder crear el objeto, fue la unica manera de poder acceder a la imagen
+      const byteCaracteres = atob(qrCodeBufferBase64); //esta funcion decodifica una cadena de datos base64
+      const byteNumeros = new Array(byteCaracteres.length);
+      for (let i = 0; i < byteCaracteres.length; i++) {
+        byteNumeros[i] = byteCaracteres.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumeros);
+      const byteBlob = new Blob([byteArray], { type: 'image/png' });
+
+
+      this.imageUrl = URL.createObjectURL(byteBlob);
+      this.socket.retrieveStoredUserCount(); // Recupera el valor almacenado en localStorage       
     });
   }
 

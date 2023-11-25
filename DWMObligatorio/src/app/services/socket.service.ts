@@ -50,6 +50,13 @@ export class SocketService {
       })
     }
 
+    public escucharFinActividades(){
+      this.socket.on('fin-actividades' ,() => {
+        console.log("TERMINO");
+        this._actividadActual.next(null);
+      })
+    }
+
 
   increaseUserCount(id: string): void {
     this._userCount.next(this._userCount.getValue() + 1);

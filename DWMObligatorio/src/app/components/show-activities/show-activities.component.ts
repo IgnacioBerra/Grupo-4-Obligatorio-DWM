@@ -18,7 +18,13 @@ export class ShowActivitiesComponent {
   propuestaId: string | null = localStorage.getItem('propuestaId');
   accessToken: string | null = localStorage.getItem('access_token');
   idSesion: string | null = localStorage.getItem('idSesion');
-  accesoVoto: boolean = false;
+  userId: string | null = localStorage.getItem('userId');
+  accesoVoto: boolean = false;  
+  
+  votos: any[] = [{
+    actividad: '',
+    todosLosVotos: {}
+  }];
 
   //activities!: Observable<any[]>;
   constructor(private activityService: ActivitiyService, private socket : SocketService, private partida: PartidaService) {
@@ -36,10 +42,10 @@ export class ShowActivitiesComponent {
           actividad: actividad.title,
           votos: [],
         }
+
         this.partida.postPartida(this.accessToken || '', partidaActual).subscribe({
           next: (response) => {
-            console.log("Respuesta:", response);
-            // Realiza acciones con la respuesta aquí
+            console.log("Respuesta:", response);            
           },
           error: (error) => {
             console.log("Error:", error);
@@ -48,10 +54,13 @@ export class ShowActivitiesComponent {
           }
         });
         console.log(partidaActual);
+      }else{
+        console.log(this.votos);
       }
     });
 
     this.socket.escucharInicioActividad(); //modificar este metodo para que devuelva la lista de actividades
+    this.socket.escucharFinActividades();
   }
 
 
@@ -60,11 +69,20 @@ export class ShowActivitiesComponent {
   }
 
 
-   votar(voto: number, actividad: string) {    
-    if (this.idSesion !== null && this.accessToken !== null) {
-      this.partida.addVoto(this.accessToken, voto, this.idSesion, actividad);      
-    }
-   }
+  // votar(voto: number, actividad: string) {    
+  //   if (this.idSesion !== null && this.accessToken !== null) {
+  //     this.partida.addVoto(this.accessToken, voto, this.idSesion, actividad);      
+  //   }
+  // }
 
   
+  votar(voto: number, actividad: string) {    
+    if (this.idSesion !== null && this.accessToken !== null && actividad != '') {
+      const id = this.userId;
+      this.votos = [{
+        actividad: actividad,
+        todosLosVotos: {id : voto}
+      }]
+    }
+  }
 }
