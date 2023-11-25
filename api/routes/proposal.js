@@ -14,7 +14,7 @@ router.get('/',authenticateToken, async (req, res) => {
 
 router.get('/:id', getProposal, (req, res) => {
     res.json(res.proposal);
-})
+});
 
 router.post('/', authenticateToken, async (req, res) => {
     const proposal = new Proposal({
@@ -34,26 +34,26 @@ router.post('/', authenticateToken, async (req, res) => {
 
 //actualizar propuesta
 router.patch('/:id', getProposal, async (req, res) => {
-if (req.body.title!=null) {
-    res.proposal.title=req.body.title
-}
-if (req.body.description!=null) {
-    res.proposal.description=req.body.description
-}
-if (req.body.image!=null) {
-    res.proposal.image=req.body.image
-}
-if (req.body.activities!=null) {
-    res.proposal.activities=req.body.activities
-}
+    if (req.body.title != null) {
+        res.proposal.title = req.body.title
+    }
+    if (req.body.description != null) {
+        res.proposal.description = req.body.description
+    }
+    if (req.body.image != null) {
+        res.proposal.image = req.body.image
+    }
+    if (req.body.activities != null) {
+        res.proposal.activities = req.body.activities
+    }
 
-try {
-    const updateProposal= await res.proposal.save();
-    res.json(updateProposal);
-} catch (error) {
-    res.status(400).json({message: error.message});
-}
-})
+    try {
+        const updateProposal = await res.proposal.save();
+        res.json(updateProposal);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
 
 
 router.delete('/:id', getProposal, async (req, res) => {

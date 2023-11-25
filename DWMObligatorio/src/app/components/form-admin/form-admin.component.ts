@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { userCredentials } from '../../user';
 import { Router } from '@angular/router';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-form-admin',
@@ -45,7 +46,7 @@ export class FormAdminComponent {
   async fetchPost(UserCredentials: userCredentials) {
 
     try {
-      const post = await fetch("http://localhost:3000/login", {
+      const post = await fetch(`http://${environment.url}:3000/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

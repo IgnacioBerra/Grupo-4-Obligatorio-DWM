@@ -107,9 +107,13 @@
                     <div class="login-div text-center">
                         <div class="qr-code">
                             <img [src]="this.imageUrl" alt="QR Code" />
+                            <!-- <img src="http://localhost:3000/qr/qr.png" alt="QR Code" /> -->                            
+                          </div> 
+                          <p><a [href]="url">{{ url }}</a>.</p>
+
                         </div>
                     </div>
-                </div>
+                </div>           
             </div>
 
             <div class="overlay">

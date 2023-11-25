@@ -11,23 +11,8 @@ import { Propuesta } from '../interfaces/propuesta';
 export class PropuestaService {
   constructor(private http: HttpClient) { }
 
-  private propuestasUrl = 'http://localhost:3000/proposal';
-  private gameUrl = 'http://localhost:3000/game';
+  private propuestasUrl = 'http://localhost:3000/proposal';  
 
-
-  postStart(id: string): void {
-    this.http.post(`${this.gameUrl}/start`, { id }).subscribe(
-      response => {
-        console.log('Solicitud POST exitosa:', response);
-        // Puedes realizar otras acciones después de una solicitud exitosa si es necesario
-      },
-      error => {
-        console.error('Error en la solicitud POST:', error);
-        console.error('Cuerpo de la respuesta:', error.error);
-      }
-    );
-    
-  }
 
   getPropuestas(token: string): Observable<Propuesta[]> {
     // Agrega el token de autenticación en la cabecera de la solicitud

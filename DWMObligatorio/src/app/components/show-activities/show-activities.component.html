@@ -34,39 +34,27 @@
     </div>
 </div> -->
 
-<div class="actividad-tarjeta-container">
-    <div class="row mt-4 justify-content-center">
-        <div class="col-6">
-            <!-- <app-show-activities *ngIf="comienzo"></app-show-activities> -->
-            <div class="actividad-tarjeta" *ngIf="actividades.length > 0">
-                <div class="row">
-                    <div class="col text-center">
-                        <h1 class="tituloActividad">{{ actividades[0].title }}</h1>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-10">
-                        <img [src]="actividades[0].image" alt="{{ actividades[0].title }}">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p>{{ actividades[0].description }}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <input type="radio" class="btn-check" name="options-base" id="option5" autocomplete="off">
-                        <label class="btn btn-vote" for="option5">Like</label>
+ <div class="actividad-tarjeta-container"> 
+    <!-- <app-show-activities *ngIf="comienzo"></app-show-activities> -->
+     <div class="actividad-tarjeta" *ngIf="actividades.length > 0">
+        <h3>{{ actividades[0].title }}</h3>
+        <p>{{ actividades[0].description }}</p>
+        <img [src]="actividades[0].image" alt="{{ actividades[0].title }}">
+    
+    
+        <div *ngIf='accesoVoto'>
+            <!-- <input type="radio" class="btn-check" name="options-base" id="option5" autocomplete="off" (click)="votar(1, actividades[0].title)">
+            <label class="btn btn-vote" for="option5">Like</label>
+            
+            <input type="radio" class="btn-check" name="options-base" id="option6" autocomplete="off" (click)="votar(-1, actividades[0].title)">
+            <label class="btn btn-vote" for="option6">Dislike</label>
+            
+            <input type="radio" class="btn-check" name="options-base" id="option8" autocomplete="off" (click)="votar(0, actividades[0].title)">
+            <label class="btn btn-vote" for="option8">Not interested</label> -->
+            <button class="btn btn-vote" (click)="votar(1, actividades[0].title)">Like</button>
+            <button class="btn btn-vote" (click)="votar(-1, actividades[0].title)">Dislike</button>
+            <button class="btn btn-vote" (click)="votar(0, actividades[0].title)">Not interested</button>
 
-                        <input type="radio" class="btn-check" name="options-base" id="option6" autocomplete="off">
-                        <label class="btn btn-vote" for="option6">Dislike</label>
-
-                        <input type="radio" class="btn-check" name="options-base" id="option8" autocomplete="off">
-                        <label class="btn btn-vote" for="option8">Not interested</label>
-                    </div>
-                </div>
-            </div>
         </div>
 
     </div>

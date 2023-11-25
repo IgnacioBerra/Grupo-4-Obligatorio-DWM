@@ -13,12 +13,24 @@ export class GameUserComponent {
   userId: string = '';
   
   constructor(private socket: SocketService) {
-    this.userId = uuidv4();
-    this.socket.increaseUserCount(this.userId); //incrementando cada vez q se conecta un user  
+    // this.userId = uuidv4();
+    // this.socket.increaseUserCount(this.userId); //incrementando cada vez q se conecta un user  
   }
 
-  ngOnInit(): void {    
-    
-  }
+  //PROBAR DESDE DIFERENTES DISPOSITIVOS, SI NO NO SE SI FUNCIONA COMO DEBE
 
+  ngOnInit(): void {
+    // Verificar si existe un ID almacenado localmente
+    const storedUserId = localStorage.getItem('userId');
+
+    // Generar un nuevo ID si no existe o no es válido
+    if (!storedUserId) {
+      this.userId = uuidv4();
+      localStorage.setItem('userId', this.userId); // Guardar el nuevo ID en el almacenamiento local
+    } else {
+      this.userId = storedUserId; // Usar el ID almacenado localmente
+    }
+
+    this.socket.increaseUserCount(this.userId); // Incrementar cada vez que se conecta un usuario
+  }
 }
