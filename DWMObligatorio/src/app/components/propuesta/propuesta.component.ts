@@ -21,7 +21,35 @@ export class PropuestaComponent {
   };
   selectedActivities: Activity[] = [];
 
-  constructor(private propuestaService: PropuestaService, private activityService: ActivitiyService) { }
+
+
+
+
+
+  constructor(private propuestaService: PropuestaService, private activityService: ActivitiyService) {}
+    propuestaPreview = {
+      title: 'Titulo',
+      description: 'Descripción de la actividad',
+      image: ''
+    }
+  
+
+  onInputChange(event: any, field: string) {
+    if (field === 'title') {
+      this.propuestaPreview.title = event.target.value;
+    } else if (field === 'description') {
+      this.propuestaPreview.description = event.target.value;
+    } else if (field === 'image') {
+      const fileInput = event.target;
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.propuestaPreview.image = e.target.result;
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.getPropuestas();
