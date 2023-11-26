@@ -10,7 +10,7 @@ router.get('/', authenticateToken, async (req, res) => {
 
     let sessionId = req.query.sessionId;
 
-    const redirectUrl = `http://${process.env.URL_IP}:4200/game?sessionId=${sessionId}`;
+    const redirectUrl = `http://${process.env.URL_IP}:4200/game-user?sessionId=${sessionId}`;
 
     const options = {
       errorCorrectionLevel: 'H',
@@ -23,8 +23,8 @@ router.get('/', authenticateToken, async (req, res) => {
     res.set('Content-Type', 'image/png');
     //  res.send(qrCodeBuffer);
     const responseData = {
-      qrCodeUrl: redirectUrl, // Puedes incluir la URL generada del QR
-      qrCodeBuffer: qrCodeBuffer.toString('base64') // Si es necesario, convierte el buffer a base64
+      qrCodeUrl: redirectUrl, 
+      qrCodeBuffer: qrCodeBuffer.toString('base64') 
     };
 
     res.status(200).json(responseData);
@@ -71,7 +71,7 @@ router.get('/actividades', async (req, res) => {
 router.patch('/actividades/:idSesion', authenticateToken, getGame, async (req, res) => {
   const actividadABuscar = req.body.actividad; 
   const voto = req.body.voto; 
-
+  
   // filtro los juegos encontrados por la actividad especificada
   if (res.partidas && actividadABuscar) {
     juegoConActividadEspecifica = res.partidas.find(item => item.actividad === actividadABuscar);}

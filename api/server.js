@@ -17,7 +17,7 @@ app.use(express.json());
 
 app.use(cors({
     origin: `http://${process.env.URL_IP}:4200`,
-    methods:"GET,PUT,POST,DELETE"
+    methods:"GET,PUT,POST,PATCH,DELETE"
 }));
 
 const proposalRouter = require('./routes/proposal.js');
@@ -101,7 +101,6 @@ async function obtenerPropuesta(propuestaID) {
         if (proposal != null) {
             let activities = proposal.activities;
             imprimirActividadesConRetraso(activities, 0);
-
         }
     } catch (error) {
         console.log(error);
@@ -114,7 +113,11 @@ function imprimirActividadesConRetraso(activities, index) {
         setTimeout(() => {
             io.emit("pasarActividad", actividadActual);
             imprimirActividadesConRetraso(activities, index + 1)
-        }, 5000) // Pasa cada 5 segundos. 
+        }, 5000) 
+    }else if (index === activities.length) {
+        setTimeout(() => {
+            io.emit("fin-actividades"); 
+        }, 5000);
     }
 }
 

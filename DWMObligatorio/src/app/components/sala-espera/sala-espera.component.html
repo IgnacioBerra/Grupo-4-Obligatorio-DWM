@@ -35,14 +35,13 @@
                                     <div class="col">
                                         <p>Usuarios conectados: {{ usuarios.toString() }}</p>
                                     </div>
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col">
                                             <div class="usuariosConectados mt-4">
-                                                <p>hola</p>
-                                                <p>hola</p>
+                                     
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="col">
@@ -58,7 +57,7 @@
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col">
-                                        <p>Link: </p>
+                                        <p>Link: <a [href]="url">{{ url }}</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -72,46 +71,9 @@
                         </div>
                     </div>
                 </div>
-                <app-show-activities *ngIf="comienzo"></app-show-activities>
+                <app-show-activities *ngIf="!termino"></app-show-activities>
             </div>
         </div>
     </div>
 </div>
-<!-- 
 
-<div class="fondo">
-
-    <div class="container">
-
-
-
-
-
-
-        <div *ngIf='!comienzo'>
-            <div class="row justify-content-center align-items-center" style="height: 100vh;">
-                <div class="col-6">
-                    <div class="login-div text-center">
-                        <div class="qr-code">
-                            <img [src]="this.imageUrl" alt="QR Code" />
-                             <img src="http://localhost:3000/qr/qr.png" alt="QR Code" />                          
-                          </div> 
-                          <p><a [href]="url">{{ url }}</a>.</p>
-
-                        </div>
-                    </div>
-                </div>           
-            </div>
-
-            <div class="overlay">
-                <div class="col-3 ex" style="height: 97vh; ">
-                    <div class="user-list">
-                        <div class="lead text-white">Usuarios conectados: {{ usuarios.toString() }}</div>
-                    </div>
-                </div>
-            </div>
-            <button class="play-button" (click)="readID()">Play</button>
-        </div>
-        <app-show-activities *ngIf="comienzo"></app-show-activities>
-    </div>
-</div>-->

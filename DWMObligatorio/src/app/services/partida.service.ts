@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environment/environment';
 import { Partida } from '../interfaces/partida';
+import { Votos } from '../interfaces/votos';
 
 @Injectable({
   providedIn: 'root'
@@ -39,29 +40,34 @@ export class PartidaService {
     return this.http.post(`${this.gameUrl}/actividades`, nuevaPartida, { headers });
   }
   
-  addVoto(token: string, voto: number, idSesion: string, actividad: string){
+  addVoto(votos: Votos[] ,token: string, idSesion: string, userId: string){
     
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
 
-    let body = {
-      voto,
-      actividad 
-    };
+    votos.forEach(voto => {
+      const actividad = voto.actividad;
+      const votosData = voto.votos;
+      const valorVoto = votosData[userId];
 
-    console.log(`${this.gameUrl}/actividades/${idSesion}`);
-    console.log("BODDYYY", { headers });
-
-    this.http.patch(`${this.gameUrl}/actividades/${idSesion}`, body, { headers }).subscribe({
-      next: (response) => {
-        console.log(" BIEN ", response);        
-      },
-      error: (error) => {
-        console.log(error);
-        console.log(error.error)
-      }
+      const body = {
+        voto: valorVoto,
+        actividad: actividad        
+      };
+      
+      this.http.patch(`${this.gameUrl}/actividades/${idSesion}`, body, { headers }).subscribe({
+        next: (response) => {
+          console.log("BIEN", response);                  
+        },
+        error: (error) => {
+          console.log(error);
+          console.log("ESTE ES EL ERROR", error.error);
+        }
+      });
     });
+
   }
 }
+  

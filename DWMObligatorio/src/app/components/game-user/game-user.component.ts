@@ -25,9 +25,9 @@ export class GameUserComponent {
 
     // Generar un nuevo ID si no existe o no es válido
     if (!storedUserId) {
-      this.userId = uuidv4();
+      this.userId = uuidv4();      
       localStorage.setItem('userId', this.userId); // Guardar el nuevo ID en el almacenamiento local
-    } else {
+    } else{
       this.userId = storedUserId; // Usar el ID almacenado localmente
     }
 
