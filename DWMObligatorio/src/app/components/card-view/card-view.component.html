@@ -4,30 +4,18 @@
       <div class="row">
         <div class="cartas">
           <div class="col" *ngFor="let tarjeta of tarjetas | async">
-            <div class="proposal-card shadow-sm">
-              <div class="row">
-                <div class="col text-center">
-                  <h1 class="titleProposal">{{tarjeta.title}}</h1>
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h1 class="titleProposal text-center">{{tarjeta.title}}</h1>
+                <img src="../../assets//SignInImage.jpeg" width="200px" height="200px" class="rounded " alt="...">
+                <hr>
+                <div class="descripcion">
+                  <p class="texto">{{tarjeta.description}}</p>
                 </div>
+                <button class="btn btn-play" routerLink="/game"
+                  (click)="guardarId(tarjeta._id.toString())">Jugar</button>
+                <button class="btn btn-danger" (click)="removeId(tarjeta._id.toString())"> DEL</button>
               </div>
-              <div class="row justify-content-center">
-                <div class="col-10">
-                  <img src="../../assets//SignInImage.jpeg" width="200px" height="200px" class="rounded float-start"
-                    alt="...">
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-10">
-                  <p>{{tarjeta.description}}</p>
-                </div>
-              </div>
-              <div class="row align-items-end">
-                <div class="col text-center">
-                  <button class="btn btn-play" routerLink="/game" (click)="guardarId(tarjeta._id.toString())">PLAY</button>
-                  <button class="btn btn-danger" (click)="removeId(tarjeta._id.toString())"> DEL</button>
-              </div>
-            </div>
             </div>
           </div>
         </div>

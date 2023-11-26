@@ -13,6 +13,7 @@
 	display: inline-block;
 }
 
+
 /* Estiliza el botón de editar como desees */
 button {
 	background-color: #007bff;
@@ -23,6 +24,11 @@ button {
 }
 
 /***************************************************************/
+
+.descripcion{
+	overflow: auto;
+	height: 200px;
+}
 .proposal-card {
 	background-color: white;
 	padding: 20px;
@@ -59,19 +65,19 @@ button {
 	display: flex;
 	overflow-x: auto;
 	align-items: flex-start;
-	white-space: nowrap;
 }
 
-.cartas::-webkit-scrollbar {
+.cartas::-webkit-scrollbar, .descripcion::-webkit-scrollbar {
 	height: 8px;
+	width: 8px;
 }
 
-.cartas::-webkit-scrollbar-track {
+.cartas::-webkit-scrollbar-track, .descripcion::-webkit-scrollbar-track {
 	background-color: rgba(0, 0, 0, 0.3);
 	box-shadow: inset 0 0 2px rgba(0, 0, 0, 0);
 }
 
-.cartas::-webkit-scrollbar-thumb {
+.cartas::-webkit-scrollbar-thumb, .descripcion::-webkit-scrollbar-thumb {
 	border-radius: 15px;
 	background-color: rgba(255, 255, 255, 0.3);
 	outline: 1px solid rgba(255, 255, 255, 0.3);
