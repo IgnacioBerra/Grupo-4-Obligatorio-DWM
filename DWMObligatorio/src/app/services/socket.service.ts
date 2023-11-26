@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
 import { environment } from 'src/environment/environment';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Activity } from '../interfaces/activity';
 import { PropuestaService } from './propuesta.service';
@@ -21,7 +21,9 @@ export class SocketService {
     // Agrega un nuevo BehaviorSubject para notificar al componente SalaEsperaComponent
     private _actividadActual: BehaviorSubject<Activity | null> = new BehaviorSubject<Activity | null>(null);
     public actividadActual$ = this._actividadActual.asObservable();
-    //para mostrar tarjetas en html
+    private _finActividad: Subject<void> = new Subject<void>();
+    public finActividad$ = this._finActividad.asObservable();
+
   
 
   actividad : Activity[] | undefined;
@@ -53,7 +55,7 @@ export class SocketService {
     public escucharFinActividades(){
       this.socket.on('fin-actividades' ,() => {
         console.log("TERMINO");
-        this._actividadActual.next(null);
+        this._finActividad.next();
       })
     }
 

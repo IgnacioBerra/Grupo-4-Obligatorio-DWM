@@ -114,8 +114,10 @@ function imprimirActividadesConRetraso(activities, index) {
             io.emit("pasarActividad", actividadActual);
             imprimirActividadesConRetraso(activities, index + 1)
         }, 5000) 
-    }else{
-        io.emit('fin-actividades');
+    }else if (index === activities.length) {
+        setTimeout(() => {
+            io.emit("fin-actividades"); 
+        }, 5000);
     }
 }
 
