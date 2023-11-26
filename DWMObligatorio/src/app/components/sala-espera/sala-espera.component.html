@@ -35,14 +35,13 @@
                                     <div class="col">
                                         <p>Usuarios conectados: {{ usuarios.toString() }}</p>
                                     </div>
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col">
                                             <div class="usuariosConectados mt-4">
-                                                <p>hola</p>
-                                                <p>hola</p>
+                                     
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="col">
@@ -72,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-                <app-show-activities *ngIf="comienzo"></app-show-activities>
+                <app-show-activities *ngIf="!termino"></app-show-activities>
             </div>
         </div>
     </div>
