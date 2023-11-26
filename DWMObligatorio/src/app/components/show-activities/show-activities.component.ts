@@ -5,6 +5,7 @@ import { SocketService } from 'src/app/services/socket.service';
 import { Activity } from 'src/app/interfaces/activity';
 import { Partida } from 'src/app/interfaces/partida';
 import { PartidaService } from 'src/app/services/partida.service';
+import { Votos } from 'src/app/interfaces/votos';
 
 @Component({
   selector: 'app-show-activities',
@@ -21,15 +22,14 @@ export class ShowActivitiesComponent {
   userId: string | null = localStorage.getItem('userId');
   accesoVoto: boolean = false;  
   
-  votos: any[] = [{
-    actividad: '',
-    todosLosVotos: {}
-  }];
+  votos: Votos[] = [];
 
   //activities!: Observable<any[]>;
   constructor(private activityService: ActivitiyService, private socket : SocketService, private partida: PartidaService) {
 
-    //para mostrar tarjetas en html (debe ir en otro componente)
+    this.socket.escucharInicioActividad(); 
+    this.socket.escucharFinActividades();
+  
     this.socket.actividadActual$.subscribe((actividad) => {
       if (actividad) {
         this.accesoVoto = true;
@@ -43,6 +43,13 @@ export class ShowActivitiesComponent {
           votos: [],
         }
 
+        let nuevaActividad: Votos = {
+          actividad: actividad.title,
+          votos: {}
+        };
+
+        this.votos.push(nuevaActividad);
+        
         this.partida.postPartida(this.accessToken || '', partidaActual).subscribe({
           next: (response) => {
             console.log("Respuesta:", response);            
@@ -50,17 +57,18 @@ export class ShowActivitiesComponent {
           error: (error) => {
             console.log("Error:", error);
             console.log("Error completo:", error.error);
-            // Maneja el error aquí
           }
         });
         console.log(partidaActual);
-      }else{
-        console.log(this.votos);
       }
     });
 
-    this.socket.escucharInicioActividad(); //modificar este metodo para que devuelva la lista de actividades
-    this.socket.escucharFinActividades();
+
+    this.socket.finActividad$.subscribe(() => {
+      console.log(this.votos);
+      this.addVotos();
+      alert('¡Todas las actividades han terminado!');
+    });
   }
 
 
@@ -78,11 +86,29 @@ export class ShowActivitiesComponent {
   
   votar(voto: number, actividad: string) {    
     if (this.idSesion !== null && this.accessToken !== null && actividad != '') {
-      const id = this.userId;
-      this.votos = [{
+      const id = this.userId || '';
+      let objetoActividad  = this.votos.find((item) => item.actividad === actividad);
+
+      if (!objetoActividad) {
+      objetoActividad = {
         actividad: actividad,
-        todosLosVotos: {id : voto}
-      }]
+        votos: {}
+      };
+      this.votos.push(objetoActividad);
+    }
+
+    if (!objetoActividad.votos[id]) {
+      objetoActividad.votos[id] = voto;
+    } else {
+      // Si el usuario ya había votado previamente para esta actividad, actualiza el voto
+      objetoActividad.votos[id] += voto;
     }
   }
+}
+
+private addVotos(){
+  if (this.idSesion !== null && this.accessToken !== null && this.userId !== null) {
+  this.partida.addVoto(this.votos, this.accessToken, this.idSesion, this.userId);
+  }
+}
 }
