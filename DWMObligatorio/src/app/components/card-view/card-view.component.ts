@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Propuesta } from '../../interfaces/propuesta';
 import { PropuestaService } from '../../services/propuesta.service';
 import { Router } from '@angular/router';
+import { getSafePropertyAccessString } from '@angular/compiler';
 @Component({
   selector: 'app-card-view',
   templateUrl: './card-view.component.html',
@@ -26,4 +27,12 @@ export class CardViewComponent implements OnInit {
     
   }
 
+  removeId(actividadId:string)
+  {
+
+    this.propuestaService.eliminarPropuesta(localStorage.getItem('access_token') || 'null', actividadId).subscribe(() => {
+      console.log('Propuesta eliminada');
+    });
+    
+  }
 }

@@ -12,6 +12,8 @@ router.get('/',authenticateToken, async (req, res) => {
     }
 })
 
+
+
 router.get('/:id', getProposal, (req, res) => {
     res.json(res.proposal);
 });

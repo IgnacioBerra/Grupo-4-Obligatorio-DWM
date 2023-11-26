@@ -15,7 +15,8 @@ export class AdminBarsComponent {
 
   constructor(private observer: BreakpointObserver, private router: Router) {}
 
-  ngAfterViewInit() {
+  ngAfterViewInit () {
+    setTimeout(() =>{
     this.observer.observe(["(max-width: 800px)"]).subscribe((res) => {
       if (res.matches) {
         this.sidenav.mode = "over";
@@ -24,7 +25,8 @@ export class AdminBarsComponent {
         this.sidenav.mode = "side";
         this.sidenav.open();
       }
-    });
+    });})
+  
   }
 
   async logout() {

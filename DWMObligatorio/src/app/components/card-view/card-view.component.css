@@ -31,7 +31,12 @@ button {
 	border-radius: 10px;
 	width: 280px;
 	max-height: 100%;
-	/*height: 400px;*/
+	height: 580px;
+	
+}
+.col-10 {
+	overflow:hidden;
+    word-wrap: break-word;
 }
 
 .proposal-container {
@@ -40,7 +45,7 @@ button {
 	margin-top: 20px;
 	margin-left: 20px;
 	width: 70%;
-	height: 610px;
+	height: calc(100vh - 100px);
 	margin-right: 20px;
 }
 
@@ -77,10 +82,14 @@ button {
 .btn-play {
 	color: white;
 	background-color: #c466ff;
-	width: 100%;
+	width: 80%;
 }
-
+.btn-danger {
+	width: 20%;
+}
 .btn-play:hover {
 	color: white;
 	background-color: #753c99;
 }
+
+

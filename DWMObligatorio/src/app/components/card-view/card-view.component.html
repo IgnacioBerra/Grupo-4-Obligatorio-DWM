@@ -24,9 +24,10 @@
               </div>
               <div class="row align-items-end">
                 <div class="col text-center">
-                  <button class="btn btn-play" routerLink="/game" (click)="guardarId(tarjeta._id.toString())">Jugar</button>
-                </div>
+                  <button class="btn btn-play" routerLink="/game" (click)="guardarId(tarjeta._id.toString())">PLAY</button>
+                  <button class="btn btn-danger" (click)="removeId(tarjeta._id.toString())"> DEL</button>
               </div>
+            </div>
             </div>
           </div>
         </div>
