@@ -46,9 +46,7 @@ export class PartidaService {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
-    console.log("idSesion: ", idSesion);
-    console.log("token: ", token)
-    console.log("headers: ", { headers });
+
     votos.forEach(voto => {
       const actividad = voto.actividad;
       const votosData = voto.votos;
@@ -58,7 +56,6 @@ export class PartidaService {
         voto: valorVoto,
         actividad: actividad        
       };
-
       
       this.http.patch(`${this.gameUrl}/actividades/${idSesion}`, body, { headers }).subscribe({
         next: (response) => {
@@ -67,11 +64,10 @@ export class PartidaService {
         error: (error) => {
           console.log(error);
           console.log("ESTE ES EL ERROR", error.error);
-          console.log("BODY",body);
         }
       });
     });
-    console.log(votos);
+
   }
 }
   

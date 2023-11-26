@@ -17,7 +17,7 @@ app.use(express.json());
 
 app.use(cors({
     origin: `http://${process.env.URL_IP}:4200`,
-    methods:"GET,PUT,POST"
+    methods:"GET,PUT,POST,PATCH,DELETE"
 }));
 
 const proposalRouter = require('./routes/proposal.js');

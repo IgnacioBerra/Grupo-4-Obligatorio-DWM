@@ -17,6 +17,7 @@ export class SalaEsperaComponent implements OnInit {
    imageUrl: string = '';
    usuarios: number = 0;
    comienzo: boolean = false;
+   termino: boolean = false;
    sessionId: string = '';
    url: string = '';
 
@@ -29,7 +30,7 @@ export class SalaEsperaComponent implements OnInit {
       console.log(this.usuarios);
     });
 
-    // this.socket.escucharInicioActividad();
+    
 
   }
 

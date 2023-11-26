@@ -21,7 +21,7 @@ export class ShowActivitiesComponent {
   idSesion: string | null = localStorage.getItem('idSesion');
   userId: string | null = localStorage.getItem('userId');
   accesoVoto: boolean = false;  
-  
+
   votos: Votos[] = [];
 
   //activities!: Observable<any[]>;
@@ -32,7 +32,6 @@ export class ShowActivitiesComponent {
   
     this.socket.actividadActual$.subscribe((actividad) => {
       if (actividad) {
-        this.accesoVoto = true;
         this.actividades = [actividad];
 
         let partidaActual: Partida = {
@@ -69,6 +68,7 @@ export class ShowActivitiesComponent {
       this.addVotos();
       alert('¡Todas las actividades han terminado!');
     });
+
   }
 
 
@@ -83,28 +83,35 @@ export class ShowActivitiesComponent {
   //   }
   // }
 
+  contieneSecuenciaEspecifica(secuencia: string): boolean {
+    const currentUrl: string = window.location.href;
+    return currentUrl.includes(secuencia);
+  }
+
   
-  votar(voto: number, actividad: string) {    
+  
+  votar(voto: number, actividad: string) {
     if (this.idSesion !== null && this.accessToken !== null && actividad != '') {
       const id = this.userId || '';
-      let objetoActividad  = this.votos.find((item) => item.actividad === actividad);
+      let objetoActividad = this.votos.find((item) => item.actividad === actividad);
 
-      if (!objetoActividad) {
-      objetoActividad = {
-        actividad: actividad,
-        votos: {}
-      };
-      this.votos.push(objetoActividad);
-    }
+         if (!objetoActividad) {
+         objetoActividad = {
+           actividad: actividad,
+           votos: {}
+         };
+         this.votos.push(objetoActividad);
+       }
 
-    if (!objetoActividad.votos[id]) {
-      objetoActividad.votos[id] = voto;
-    } else {
-      // Si el usuario ya había votado previamente para esta actividad, actualiza el voto
-      objetoActividad.votos[id] += voto;
+        if (!objetoActividad.votos[id]) {
+          objetoActividad.votos[id] = voto;
+        } else {
+          // Si el usuario ya había votado previamente para esta actividad, actualiza el voto, es decir, nos quedamos con el último voto del usuario
+          objetoActividad.votos[id] += voto;
+        }
+      
     }
   }
-}
 
 private addVotos(){
   if (this.idSesion !== null && this.accessToken !== null && this.userId !== null) {
