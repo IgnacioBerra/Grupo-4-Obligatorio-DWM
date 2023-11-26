@@ -16,10 +16,16 @@
     top: 0;
     left: 0;
     background: linear-gradient(to bottom, #0e04a0, #c466ff);
+    
 }
+
+
+
+
 
 .content-form {
     background-color: white;
+    
 }
 
 .mostrarActividad {

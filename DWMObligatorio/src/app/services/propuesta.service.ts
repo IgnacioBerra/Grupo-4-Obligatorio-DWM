@@ -52,8 +52,9 @@ export class PropuestaService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-
+    console.log(id);
+    console.log(this.propuestasUrl);
     const url = `${this.propuestasUrl}/${id}`;
-    return this.http.delete(url, { headers });
+    return this.http.delete<Propuesta>(url, { headers });
   }
 }

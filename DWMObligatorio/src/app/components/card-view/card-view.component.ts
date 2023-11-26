@@ -29,9 +29,10 @@ export class CardViewComponent implements OnInit {
 
   removeId(actividadId:string)
   {
-    const accessToken = localStorage.getItem('access_token');
-    this.propuestaService.eliminarPropuesta(accessToken || 'null',actividadId);
+
+    this.propuestaService.eliminarPropuesta(localStorage.getItem('access_token') || 'null', actividadId).subscribe(() => {
+      console.log('Propuesta eliminada');
+    });
     
   }
-
 }
