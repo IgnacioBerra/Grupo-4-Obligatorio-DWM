@@ -13,15 +13,19 @@ import { Votos } from 'src/app/interfaces/votos';
   styleUrls: ['./show-activities.component.css']
 })
 export class ShowActivitiesComponent {
-
+  
+  actividadGanadora :string ='';
+  cantidadVotos: number | null = null;
   actividades: Activity[] = [];
   actividadesSubscription: Subscription | undefined;
   propuestaId: string | null = localStorage.getItem('propuestaId');
   accessToken: string | null = localStorage.getItem('access_token');
   idSesion: string | null = localStorage.getItem('idSesion');
   userId: string | null = localStorage.getItem('userId');
-  accesoVoto: boolean = false;  
-
+  accesoVoto: boolean = true;  
+  todasLasActividades: string[] = [];
+  todoLosVotos: any[] = [];
+  
   votos: Votos[] = [];
 
   //activities!: Observable<any[]>;
@@ -29,11 +33,12 @@ export class ShowActivitiesComponent {
 
     this.socket.escucharInicioActividad(); 
     this.socket.escucharFinActividades();
+    
   
     this.socket.actividadActual$.subscribe((actividad) => {
       if (actividad) {
         this.actividades = [actividad];
-
+        this.todasLasActividades.push(actividad.title);
         let partidaActual: Partida = {
           idSesion: this.idSesion!== null ? this.idSesion : '',
           idPropuesta: this.propuestaId !== null ? this.propuestaId : '', // Asigna '' si propuestaId es null
@@ -64,9 +69,11 @@ export class ShowActivitiesComponent {
 
 
     this.socket.finActividad$.subscribe(() => {
-      console.log(this.votos);
+      //console.log(this.votos);
       this.addVotos();
-      alert('¡Todas las actividades han terminado!');
+      
+      this.countVotos(this.todasLasActividades);
+      this.accesoVoto = false;
     });
 
   }
@@ -114,8 +121,29 @@ export class ShowActivitiesComponent {
   }
 
 private addVotos(){
-  if (this.idSesion !== null && this.accessToken !== null && this.userId !== null) {
-  this.partida.addVoto(this.votos, this.accessToken, this.idSesion, this.userId);
+  if (this.idSesion !== null && this.accessToken !== null && this.userId !== null && this.votos.length !== 0) {
+    this.partida.addVoto(this.votos, this.accessToken, this.idSesion, this.userId);
   }
 }
+
+//nuevo
+ private countVotos(nombreActividades: string[]) {
+   if (this.idSesion !== null && this.accessToken !== null && this.userId !== null ) {
+     this.partida.countVotes(this.accessToken, this.idSesion, nombreActividades).subscribe(
+      response => {
+        console.log("respuestAAAa ", response[0].p);
+        this.actividadGanadora = response[0].p;
+        this.cantidadVotos = response[0].sum;
+      //alert(`Actividad ganadora: ${response[0].p} \nCantidad de votos: ${response[0].sum}`);
+
+      },
+      error => {
+        console.log(error);               
+      }
+     )
+   }
+   
+ }
+//nuevo
+
 }

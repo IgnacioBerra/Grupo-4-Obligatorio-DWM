@@ -2,6 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import {  Router } from '@angular/router';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-admin-bars',
@@ -33,7 +34,7 @@ export class AdminBarsComponent {
     const accessToken = localStorage.getItem('access_token');
     if (accessToken) {
       try {
-        await fetch('http://localhost:3000/login/logout', {
+        await fetch(`http://${environment.url}:3000/login/logout`, {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${accessToken}`, 

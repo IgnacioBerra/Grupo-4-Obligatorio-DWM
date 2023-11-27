@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-add-activity',
@@ -33,7 +34,7 @@ export class AddActivityComponent {
   }
 
   cargar() {
-    this.http.post('http://localhost:3000/activities', this.actividadPreview)
+    this.http.post(`http://${environment.url}:3000/activities`, this.actividadPreview)
       .subscribe(response => {
         console.log('Formulario enviado con éxito:', response);
       }, error => {

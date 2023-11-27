@@ -92,6 +92,65 @@ router.patch('/actividades/:idSesion', authenticateToken, getGame, async (req, r
     }
 });
 
+//nuevo
+router.post('/countVotes/:idSesion', authenticateToken, getGame, async (req, res) => {
+  try {
+    const result = [];
+    const resultadoTotal = [];
+    const actividades = req.body;    
+    actividades.forEach((tituloActividad) => {      
+      let partidaAContar = res.partidas.find(item => item.actividad === tituloActividad.actividad && item.idSesion === req.params.idSesion);    
+      result.push(countVotes(partidaAContar));
+    });    
+    result.sort((a, b) => b[0].sum - a[0].sum);
+    console.log("resultado: ", result[0]);
+    // result.forEach((element) => {
+    //   element.forEach((item) =>{
+    //     console.log(item.partidaAContar.actividad, item.partidaAContar.votos)
+    //     resultadoTotal.push(item.partidaAContar.votos);
+    //   })
+    // })
+    //result.sort((a, b) => b.votos < a.votos);
+  
+    //const ganador = result.slice(0, 1);
+    //console.log("TODOS LOS VOOT", result)
+    //console.log('Conteo de votos:', ganador);
+    res.send(result[0]);
+    
+    
+      // { idSesion: idSesion , actividad: actividad });
+
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al contar los votos' });
+  }
+});
+
+function countVotes(partidaAContar) {
+  
+  const result = [];
+  let sum = 0;
+
+  
+  partidaAContar.votos.forEach((vote) => {
+
+    sum += vote;
+    
+  });
+  let p = partidaAContar.actividad;
+  result.push({p , sum});
+  console.log("PARTIDA A CONTAR ", partidaAContar.actividad)
+    
+  //result.sort((a, b) => b.votos < a.votos);
+
+  //const ganador = result.slice(0, 1);
+
+  return result;
+  
+}
+//nuevo
+
 
 //middleware para los metodos que necesitan buscar por id
 async function getGame(req, res, next) {
@@ -109,5 +168,7 @@ async function getGame(req, res, next) {
   res.partidas = partidas;
   next();
 }
+
+
 
 module.exports = router;

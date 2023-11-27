@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SocketService } from '../../services/socket.service';
 import { v4 as uuidv4 } from 'uuid';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -11,26 +12,38 @@ import { v4 as uuidv4 } from 'uuid';
 export class GameUserComponent {
 
   userId: string = '';
-  
-  constructor(private socket: SocketService) {
+  paramSession: string | null ='';
+  acceso: boolean = false;
+  storedSessionId: string | null = null;
+  storedUserId: string | null = null;
+
+  constructor(private socket: SocketService, private route: ActivatedRoute) {
     // this.userId = uuidv4();
-    // this.socket.increaseUserCount(this.userId); //incrementando cada vez q se conecta un user  
+    // this.socket.increaseUserCount(this.userId); //incrementando cada vez q se conecta un user 
+     this.paramSession = this.route.snapshot.paramMap.get('sessionId') ;
+     this.storedSessionId = localStorage.getItem('idSesion');
+     this.storedUserId = localStorage.getItem('userId');
+
+    if(this.storedSessionId != this.paramSession){
+      this.acceso = false;
+    }else{
+      this.acceso = true;
+    }
+
+    this.verificaUID();
   }
 
   //PROBAR DESDE DIFERENTES DISPOSITIVOS, SI NO NO SE SI FUNCIONA COMO DEBE
 
-  ngOnInit(): void {
-    // Verificar si existe un ID almacenado localmente
-    const storedUserId = localStorage.getItem('userId');
-
+  verificaUID(): void { 
+    
     // Generar un nuevo ID si no existe o no es válido
-    if (!storedUserId) {
+    if (!this.storedUserId) {
       this.userId = uuidv4();      
-      localStorage.setItem('userId', this.userId); // Guardar el nuevo ID en el almacenamiento local
+      localStorage.setItem('userId', this.userId); 
     } else{
-      this.userId = storedUserId; // Usar el ID almacenado localmente
+      this.userId = this.storedUserId; 
     }
-
-    this.socket.increaseUserCount(this.userId); // Incrementar cada vez que se conecta un usuario
+    this.socket.increaseUserCount(this.userId); 
   }
 }
