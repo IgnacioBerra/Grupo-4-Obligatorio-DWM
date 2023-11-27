@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+
+.fondo {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgb(196, 102, 255);
+    background: radial-gradient(circle, rgba(196, 102, 255, 1) 0%, rgba(14, 4, 160, 1) 100%);
+    overflow: auto;
+}
+
+.fondo::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+.fondo::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0);
+}
+
+
+.fondo::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.3);
+    outline: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/************************************************/
+
+.title {
+    font-family: 'Fjalla One', sans-serif;
+    font-size: 30px;
+}
+
+.card {
+    margin-right: 10px;
+}
+
+.proposal-container {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    width: 100%;
+    padding: 15px;
+}
+
+.titleProposal {
+    font-family: 'Fjalla One', sans-serif;
+}
+
+.cartas {
+    overflow-y: auto;
+    height: 100%;
+    display: flex;
+    overflow-x: auto;
+    align-items: flex-start;
+}
+
+.descripcion{
+	overflow: auto;
+	height: 150px;
+}
+
+.cartas::-webkit-scrollbar,
+.descripcion::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+.cartas::-webkit-scrollbar-track,
+.descripcion::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0);
+}
+
+.cartas::-webkit-scrollbar-thumb,
+.descripcion::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.3);
+    outline: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-vote {
+    padding: 10px;
+    margin-right: 10px;
+    margin-top: 22px;
+    font-size: 13px;
+}
+
+.btn-vote:hover{
+    background-color: rgb(196, 102, 255);
+    border-color: white;
+}
+
+.eliminar-boton{
+    color: black;
+}
+
+.editar-boton{
+    color: black;
+    float: right;
+}
+
+.volver{
+    color: white;
+}

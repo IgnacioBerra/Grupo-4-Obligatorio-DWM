@@ -1,46 +1,129 @@
-@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 
 
-.volver {
-  color: white;
-}
+  .volver {
+    color: white;
+  }
 
-.volver:hover {
-  color: rgb(199, 192, 192);
-}
-
-.fondo {
+  .fondo {
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    background: linear-gradient(to bottom, #0e04a0, #c466ff);
-    
-}
+    background: rgb(196, 102, 255);
+    background: radial-gradient(circle, rgba(196, 102, 255, 1) 0%, rgba(14, 4, 160, 1) 100%);
+    overflow: auto;
+  }
+
+  .fondo::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+
+  .fondo::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0);
+  }
+
+  .fondo::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.3);
+    outline: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .volver:hover {
+    color: rgb(199, 192, 192);
+  }
 
 
 
+  .content-form {
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 20px;
+  }
 
-
-.content-form {
-    background-color: white;
-    
-}
-
-.mostrarActividad {
+  .mostrarActividad {
     background-color: white;
     padding: 10px;
-}
-
-
-  
-  .form-check-label {
-
-    cursor: pointer; /* Muestra el cursor como un puntero al pasar sobre el label */
   }
-  
-  .form-check-label.selected {
-    background-color: #007bff; /* Cambia el color de fondo cuando la actividad está seleccionada */
-    color: #fff; /* Cambia el color del texto cuando la actividad está seleccionada */
+
+  /***************preview***************/
+  .descripcion {
+    overflow: auto;
+    height: 200px;
+  }
+
+  .actividades {
+    display: inline-block;
+  }
+
+
+  .content-actividad {
+    height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+  }
+
+  .content-actividad::-webkit-scrollbar,
+  .descripcion::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+
+  .content-actividad::-webkit-scrollbar-track,
+  .descripcion::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0);
+  }
+
+  .content-actividad::-webkit-scrollbar-thumb,
+  .descripcion::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.3);
+    outline: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+
+  .btn-play {
+    color: white;
+    background-color: #c466ff;
+    width: 100%;
+  }
+
+  .btn-play:hover {
+    color: white;
+    background-color: #753c99;
+  }
+
+  .titleProposal {
+    font-family: 'Fjalla One', sans-serif;
+  }
+
+  /********************/
+
+
+  .btn-addPropuesta {
+    margin-top: 10px;
+    width: 100%;
+    background-color: #0e04a0;
+    color: white;
+  }
+
+
+  .btn-addPropuesta:hover {
+    color: white;
+    background-color: #10087a;
+  }
+
+  .previewPropuesta {
+    margin-left: 30%;
+  }
+
+  @media screen and (max-width: 600px) {
+    .previewPropuesta {
+      margin-left: 20px;
+      margin-top: 20px;
+    }
   }

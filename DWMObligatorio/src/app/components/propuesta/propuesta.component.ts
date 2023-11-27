@@ -15,8 +15,8 @@ export class PropuestaComponent {
   activities: Activity[] = [];
   newPropuesta: Propuesta = {
     id: 0,
-    title: '',
-    description: '',
+    title: 'Titulo propuesta',
+    description: 'Descripción de la propuesta',
     image: '',
     activities: []
   };
@@ -53,6 +53,7 @@ export class PropuestaComponent {
 
   //funcion para el formulario 
   onSubmit(): void {
+    console.log(this.newPropuesta.image);
     this.newPropuesta.activities = this.selectedActivities;
     this.propuestaService.addPropuesta(localStorage.getItem('access_token') || 'null', this.newPropuesta).subscribe((data) => {
       console.log('Nueva propuesta creada:', data);
@@ -72,5 +73,23 @@ export class PropuestaComponent {
     this.propuestaService.eliminarPropuesta(localStorage.getItem('access_token') || 'null', id).subscribe(() => {
       console.log('Propuesta eliminada');
     });
+  }
+
+
+  onInputChange(event: any, field: string) {
+    if (field === 'title') {
+      this.newPropuesta.title = event.target.value;
+    } else if (field === 'description') {
+      this.newPropuesta.description = event.target.value;
+    } else if (field === 'image') {
+      const fileInput = event.target;
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.newPropuesta.image = e.target.result;
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+      }
+    }
   }
 }

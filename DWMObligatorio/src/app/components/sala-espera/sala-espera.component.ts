@@ -3,7 +3,7 @@ import { AuthServiceService } from '../../services/auth-service.service';
 import { environment } from 'src/environment/environment';
 import { SocketService } from '../../services/socket.service';
 import { v4 as uuidv4 } from 'uuid';
-
+import { Location } from '@angular/common';
 import { PartidaService } from 'src/app/services/partida.service';
 
 
@@ -14,15 +14,15 @@ import { PartidaService } from 'src/app/services/partida.service';
 })
 export class SalaEsperaComponent implements OnInit {
 
-   imageUrl: string = '';
-   usuarios: number = 0;
-   comienzo: boolean = false;
-   termino: boolean = false;
-   sessionId: string = '';
-   url: string = '';
+  imageUrl: string = '';
+  usuarios: number = 0;
+  comienzo: boolean = false;
+  termino: boolean = false;
+  sessionId: string = '';
+  url: string = '';
 
 
-  constructor(private AuthService: AuthServiceService, private socket: SocketService, private partida: PartidaService) {
+  constructor(private AuthService: AuthServiceService, private socket: SocketService, private location: Location, private partida: PartidaService) {
 
 
     this.socket.userCount$.subscribe(count => {
@@ -30,7 +30,7 @@ export class SalaEsperaComponent implements OnInit {
       console.log(this.usuarios);
     });
 
-    
+
 
   }
 
@@ -61,22 +61,26 @@ export class SalaEsperaComponent implements OnInit {
   }
 
 
-   readID() {
-     // LEO DEL LOCALSTORAGE CUAL ES LA PROPUESTA QUE SE HABIA SELECCIONADO PREVIAMENTE PARA DESPUES JUGARLA.
-     const propuestaId = localStorage.getItem('propuestaId');
-     if (propuestaId != null) {
-       console.log(propuestaId);
+  readID() {
+    // LEO DEL LOCALSTORAGE CUAL ES LA PROPUESTA QUE SE HABIA SELECCIONADO PREVIAMENTE PARA DESPUES JUGARLA.
+    const propuestaId = localStorage.getItem('propuestaId');
+    if (propuestaId != null) {
+      console.log(propuestaId);
       //  this.fetchPost(propuestaId);   
-      const accessToken = localStorage.getItem('access_token');   
+      const accessToken = localStorage.getItem('access_token');
       this.partida.postStart(accessToken || 'null', propuestaId);
       this.comienzo = true;
-     }
-   }
+    }
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
 
 
 }
 
-    
 
-    
+
+
 
