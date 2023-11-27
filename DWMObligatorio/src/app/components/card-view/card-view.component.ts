@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Propuesta } from '../../interfaces/propuesta';
 import { PropuestaService } from '../../services/propuesta.service';
 import { Router } from '@angular/router';
-import { getSafePropertyAccessString } from '@angular/compiler';
+
 @Component({
   selector: 'app-card-view',
   templateUrl: './card-view.component.html',
@@ -13,26 +12,28 @@ import { getSafePropertyAccessString } from '@angular/compiler';
 export class CardViewComponent implements OnInit {
   tarjetas!: Observable<any[]>;
 
-  constructor(private propuestaService: PropuestaService,private router: Router) {}
+  constructor(private propuestaService: PropuestaService, private router: Router) { }
 
   ngOnInit() {
     const accessToken = localStorage.getItem('access_token');
     this.tarjetas = this.propuestaService.getPropuestas(accessToken || 'null');
   }
 
-  guardarId(actividadId:string)
-  {
+  guardarId(actividadId: string) {
     localStorage.setItem('propuestaId', actividadId);
     this.router.navigate(['/game']);
-    
+
   }
 
-  removeId(actividadId:string)
-  {
-
+  removeId(actividadId: string) {
     this.propuestaService.eliminarPropuesta(localStorage.getItem('access_token') || 'null', actividadId).subscribe(() => {
       console.log('Propuesta eliminada');
+      location.reload();
     });
-    
+
+  }
+
+  editarPropuesta(id: number): void {
+    this.router.navigate(['/editar-propuesta', id]);
   }
 }

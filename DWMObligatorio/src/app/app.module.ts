@@ -25,6 +25,9 @@ import { ShowActivitiesComponent } from './components/show-activities/show-activ
 import { GameUserComponent } from './components/game-user/game-user.component';
 import { RankingComponent } from './ranking/ranking.component';
 import { AddActivityComponent } from './components/add-activity/add-activity.component';
+import { EditarPropuestaComponent } from './components/editar-propuesta/editar-propuesta.component';
+import { DisplayActivitiesComponent } from './components/display-activities/display-activities.component';
+import { EditarActivitiesComponent } from './components/editar-activities/editar-activities.component';
 
 
 @NgModule({
@@ -38,7 +41,10 @@ import { AddActivityComponent } from './components/add-activity/add-activity.com
     SalaEsperaComponent,
     ShowActivitiesComponent,
     GameUserComponent,
-    AddActivityComponent
+    AddActivityComponent,
+    EditarPropuestaComponent,
+    DisplayActivitiesComponent,
+    EditarActivitiesComponent
   ],
   imports: [
     FormsModule,
