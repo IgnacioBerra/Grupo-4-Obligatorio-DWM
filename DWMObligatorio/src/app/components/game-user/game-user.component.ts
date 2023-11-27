@@ -13,27 +13,41 @@ export class GameUserComponent {
 
   userId: string = '';
   paramSession: string | null ='';
-  acceso: boolean = false;
+  acceso: boolean = true;
   storedSessionId: string | null = null;
   storedUserId: string | null = null;
+  propuestaId: string | null = null;
 
   constructor(private socket: SocketService, private route: ActivatedRoute) {
     // this.userId = uuidv4();
     // this.socket.increaseUserCount(this.userId); //incrementando cada vez q se conecta un user 
-     this.paramSession = this.route.snapshot.paramMap.get('sessionId') ;
-     this.storedSessionId = localStorage.getItem('idSesion');
-     this.storedUserId = localStorage.getItem('userId');
+    
+  }
 
-    if(this.storedSessionId != this.paramSession){
-      this.acceso = false;
+  ngOnInit(){
+    this.route.params.subscribe(params => {
+      this.paramSession = params['sessionId'];   
+      this.propuestaId = params['propuestaId'];
+      if(this.paramSession){    
+        localStorage.setItem('idSesion', this.paramSession);    
+      }
+      if(this.propuestaId){
+        localStorage.setItem('propuestaId', this.propuestaId);
+      }
+    });
+
+     //this.storedSessionId = localStorage.getItem('idSesion');
+
+
+    if(this.paramSession !== ''){
+      this.acceso = true;          
     }else{
-      this.acceso = true;
+      this.acceso = false;
     }
 
     this.verificaUID();
+    console.log("ESTE ES MI USERID: ",this.userId);
   }
-
-  //PROBAR DESDE DIFERENTES DISPOSITIVOS, SI NO NO SE SI FUNCIONA COMO DEBE
 
   verificaUID(): void { 
     

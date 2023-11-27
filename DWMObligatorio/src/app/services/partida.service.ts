@@ -31,34 +31,28 @@ export class PartidaService {
     );    
   }
 
-  postPartida(token: string, nuevaPartida: Partida){
+  postPartida(nuevaPartida: Partida){
 
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    });
-
-    return this.http.post(`${this.gameUrl}/actividades`, nuevaPartida, { headers });
+    return this.http.post(`${this.gameUrl}/actividades`, nuevaPartida);
   }
   
-  addVoto(votos: Votos[] ,token: string, idSesion: string, userId: string){
-    
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    });
+  addVoto(votos: Votos[] ,idSesion: string, userId: string){
 
     votos.forEach(voto => {
       const actividad = voto.actividad;
       const votosData = voto.votos;
       const valorVoto = votosData[userId];
 
+      // const body = {
+      //   voto: valorVoto,
+      //   actividad: actividad        
+      // };
+
       const body = {
-        voto: valorVoto,
-        actividad: actividad        
-      };
-      
-      this.http.patch(`${this.gameUrl}/actividades/${idSesion}`, body, { headers }).subscribe({
+        votoUser: votosData,
+        actividad: actividad
+      }
+      this.http.patch(`${this.gameUrl}/actividades/${idSesion}`, body).subscribe({
         next: (response) => {
           console.log("Guardado de votos", response);                  
         },
@@ -73,11 +67,7 @@ export class PartidaService {
 
   //nuevo
   //método para contar los votos después de que las actividades han terminado
-  countVotes(token: string, idSesion: string, nombreActividad: string[]): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    });
+  countVotes(idSesion: string, nombreActividad: string[]): Observable<any> {
     const actividades: any[] = []
 
     nombreActividad.forEach((a) => {
@@ -86,7 +76,8 @@ export class PartidaService {
       }
       actividades.push(actividad);
     });
-    return this.http.post(`${this.gameUrl}/countVotes/${idSesion}`,  actividades , { headers });
+
+    return this.http.post(`${this.gameUrl}/countVotes/${idSesion}`,  actividades);
   }
   //nuevo
 }

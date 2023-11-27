@@ -18,8 +18,7 @@ export class ShowActivitiesComponent {
   cantidadVotos: number | null = null;
   actividades: Activity[] = [];
   actividadesSubscription: Subscription | undefined;
-  propuestaId: string | null = localStorage.getItem('propuestaId');
-  accessToken: string | null = localStorage.getItem('access_token');
+  propuestaId: string | null = localStorage.getItem('propuestaId');  
   idSesion: string | null = localStorage.getItem('idSesion');
   userId: string | null = localStorage.getItem('userId');
   accesoVoto: boolean = true;  
@@ -54,7 +53,7 @@ export class ShowActivitiesComponent {
 
         this.votos.push(nuevaActividad);
         
-        this.partida.postPartida(this.accessToken || '', partidaActual).subscribe({
+        this.partida.postPartida(partidaActual).subscribe({
           next: (response) => {
             console.log("Respuesta:", response);            
           },
@@ -62,8 +61,7 @@ export class ShowActivitiesComponent {
             console.log("Error:", error);
             console.log("Error completo:", error.error);
           }
-        });
-        console.log(partidaActual);
+        });        
       }
     });
 
@@ -83,13 +81,6 @@ export class ShowActivitiesComponent {
     this.actividadesSubscription?.unsubscribe();
   }
 
-
-  // votar(voto: number, actividad: string) {    
-  //   if (this.idSesion !== null && this.accessToken !== null) {
-  //     this.partida.addVoto(this.accessToken, voto, this.idSesion, actividad);      
-  //   }
-  // }
-
   contieneSecuenciaEspecifica(secuencia: string): boolean {
     const currentUrl: string = window.location.href;
     return currentUrl.includes(secuencia);
@@ -98,12 +89,14 @@ export class ShowActivitiesComponent {
   
   
   votar(voto: number, actividad: string) {
-    if (this.idSesion !== null && this.accessToken !== null && actividad != '') {
+    console.log("USER ID", this.userId);
+    console.log("voto: ", voto)
+    if (this.idSesion !== null && actividad != '') {
       const id = this.userId || '';
       let objetoActividad = this.votos.find((item) => item.actividad === actividad);
 
          if (!objetoActividad) {
-         objetoActividad = {
+         objetoActividad = {          
            actividad: actividad,
            votos: {}
          };
@@ -116,22 +109,26 @@ export class ShowActivitiesComponent {
           // Si el usuario ya había votado previamente para esta actividad, actualiza el voto, es decir, nos quedamos con el último voto del usuario
           objetoActividad.votos[id] += voto;
         }
-      
+        console.log(objetoActividad);
     }
   }
 
 private addVotos(){
-  if (this.idSesion !== null && this.accessToken !== null && this.userId !== null && this.votos.length !== 0) {
-    this.partida.addVoto(this.votos, this.accessToken, this.idSesion, this.userId);
+  if (this.idSesion !== null && this.userId !== null && this.votos.length !== 0) {
+    this.partida.addVoto(this.votos,this.idSesion, this.userId);
   }
 }
 
 //nuevo
  private countVotos(nombreActividades: string[]) {
-   if (this.idSesion !== null && this.accessToken !== null && this.userId !== null ) {
-     this.partida.countVotes(this.accessToken, this.idSesion, nombreActividades).subscribe(
+  console.log("NOMBRE ACTIVDIDADES: ", nombreActividades)
+   if (this.idSesion !== null && this.userId !== null ) {
+     this.partida.countVotes(this.idSesion, nombreActividades).subscribe(
       response => {
         console.log("respuestAAAa ", response[0].p);
+        console.log("REPONSE", response);
+        console.log("REPONSE[0]", response[0]);
+        console.log("REPONSE sum", response[0].sum);
         this.actividadGanadora = response[0].p;
         this.cantidadVotos = response[0].sum;
       //alert(`Actividad ganadora: ${response[0].p} \nCantidad de votos: ${response[0].sum}`);

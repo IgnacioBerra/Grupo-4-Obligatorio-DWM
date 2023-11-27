@@ -21,11 +21,13 @@ export class AuthServiceService {
     });
   }
 
-  getQrFilePath(token: string, sessionId: string) :Observable<any>{
+  getQrFilePath(token: string, sessionId: string, propuestaId: string) :Observable<any>{
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<any>(`${this.baseUrl}/game?sessionId=${sessionId}`, { headers });
+    
+    console.log("propuets" , propuestaId);
+    return this.http.get<any>(`${this.baseUrl}/game?sessionId=${sessionId}&propuestaId=${propuestaId}`, { headers });
   }
 
 }

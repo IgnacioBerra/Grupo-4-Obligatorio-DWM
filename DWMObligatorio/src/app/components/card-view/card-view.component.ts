@@ -20,10 +20,10 @@ export class CardViewComponent implements OnInit {
     this.tarjetas = this.propuestaService.getPropuestas(accessToken || 'null');
   }
 
-  guardarId(actividadId:string)
+  guardarId(propuestaId:string)
   {
-    localStorage.setItem('propuestaId', actividadId);
-    this.router.navigate(['/game']);
+    localStorage.setItem('propuestaId', propuestaId);
+    this.router.navigate([`/game/${propuestaId}`]);
     
   }
 

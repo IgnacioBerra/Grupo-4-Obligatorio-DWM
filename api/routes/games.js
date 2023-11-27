@@ -7,11 +7,12 @@ const Game = require('../models/gameSchema');
 
 router.get('/', authenticateToken, async (req, res) => {
   try {
-
+    
     let sessionId = req.query.sessionId;
+    let propuestaId = req.query.propuestaId
 
-    const redirectUrl = `http://${process.env.URL_IP}:4200/game-user?sessionId=${sessionId}`;
-
+    const redirectUrl = `http://${process.env.URL_IP}:4200/game-user/${sessionId}/${propuestaId}`;
+    console.log("esta es: ", propuestaId)
     const options = {
       errorCorrectionLevel: 'H',
       type: 'image/png',
@@ -36,7 +37,7 @@ router.get('/', authenticateToken, async (req, res) => {
 });
 
 
-router.post('/actividades', authenticateToken, async (req, res) => {
+router.post('/actividades', async (req, res) => {
 
   const partida = new Game({
     idSesion: req.body.idSesion,
@@ -68,7 +69,7 @@ router.get('/actividades', async (req, res) => {
 }
 });
 
-router.patch('/actividades/:idSesion', authenticateToken, getGame, async (req, res) => {
+router.patch('/actividades/:idSesion', getGame, async (req, res) => {
   const actividadABuscar = req.body.actividad; 
   const voto = req.body.voto; 
   
@@ -93,17 +94,19 @@ router.patch('/actividades/:idSesion', authenticateToken, getGame, async (req, r
 });
 
 //nuevo
-router.post('/countVotes/:idSesion', authenticateToken, getGame, async (req, res) => {
+router.post('/countVotes/:idSesion', getGame, async (req, res) => {
   try {
     const result = [];
     const resultadoTotal = [];
-    const actividades = req.body;    
+    const actividades = req.body;   
+    console.log("Actividades " , actividades);
     actividades.forEach((tituloActividad) => {      
-      let partidaAContar = res.partidas.find(item => item.actividad === tituloActividad.actividad && item.idSesion === req.params.idSesion);    
-      result.push(countVotes(partidaAContar));
+      let partidaAContar = res.partidas.find(item => item.actividad === tituloActividad.actividad && item.idSesion === req.params.idSesion);          
+      // result.push(countVotes(partidaAContar));
     });    
-    result.sort((a, b) => b[0].sum - a[0].sum);
-    console.log("resultado: ", result[0]);
+    res.json(actividades);
+    // result.sort((a, b) => b[0].sum - a[0].sum);
+    console.log("resultado: ", result);
     // result.forEach((element) => {
     //   element.forEach((item) =>{
     //     console.log(item.partidaAContar.actividad, item.partidaAContar.votos)
