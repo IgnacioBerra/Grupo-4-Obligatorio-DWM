@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-ranking',
@@ -10,7 +10,7 @@ export class RankingComponent {
 
   score: string | null='';
   actividad: string | null='';
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private router: Router) {
     this.route.paramMap.subscribe(params => {
     
       this.score = params.get('score');
@@ -22,5 +22,9 @@ export class RankingComponent {
         // Haz lo que necesites con la puntuación y la actividad recibida
       }
     });
+}
+
+inicio(): void {
+  this.router.navigate(['/']);
 }
 }
