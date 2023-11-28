@@ -16,7 +16,7 @@ app.use(express.json());
 
 
 app.use(cors({
-    origin: `http://${process.env.URL_IP}:4200`,
+    origin: `http://localhost:4200`,
     methods:"GET,PUT,POST,PATCH,DELETE"
 }));
 
@@ -35,7 +35,7 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
     cors: {
      // origin: 'http://localhost:4200',
-        origin: `http://${process.env.URL_IP}:4200`,
+        origin: `http://localhost:4200`,
         methods: "GET,PUT,POST,PATCH,DELETE",
         allowedHeaders: ['Content-Type', 'Authorization'],
     }

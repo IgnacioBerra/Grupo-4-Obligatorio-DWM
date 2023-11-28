@@ -46,7 +46,7 @@ export class FormAdminComponent {
   async fetchPost(UserCredentials: userCredentials) {
 
     try {
-      const post = await fetch(`http://${environment.url}:3000/login`, {
+      const post = await fetch(`http://localhost:3000/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

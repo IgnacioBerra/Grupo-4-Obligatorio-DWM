@@ -12,7 +12,7 @@ router.get('/',authenticateToken ,async (req, res) => {
     }
 });
 
-router.get('/:id',authenticateToken ,getActivity, (req, res) => {
+router.get('/:id' ,getActivity, (req, res) => {
     res.json(res.activity);
 });
 
