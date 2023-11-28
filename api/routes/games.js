@@ -11,8 +11,7 @@ router.get('/', authenticateToken, async (req, res) => {
     let sessionId = req.query.sessionId;
     let propuestaId = req.query.propuestaId
 
-    const redirectUrl = `http://${process.env.URL_IP}:4200/game-user/${sessionId}/${propuestaId}`;
-    console.log("esta es: ", propuestaId)
+    const redirectUrl = `http://${process.env.URL_IP}:4200/game-user/${sessionId}/${propuestaId}`;  
     const options = {
       errorCorrectionLevel: 'H',
       type: 'image/png',
@@ -75,7 +74,7 @@ router.patch('/actividades/:idSesion', getGame, async (req, res) => {
   
   // filtro los juegos encontrados por la actividad especificada
   if (res.partidas && actividadABuscar) {
-    juegoConActividadEspecifica = res.partidas.find(item => item.actividad === actividadABuscar);}
+    juegoConActividadEspecifica = res.partidas.find(item => item.actividad === actividadABuscar && item.idSesion === req.params.idSesion);}
     
     if (juegoConActividadEspecifica) {    
       if (voto != null) {
@@ -97,15 +96,15 @@ router.patch('/actividades/:idSesion', getGame, async (req, res) => {
 router.post('/countVotes/:idSesion', getGame, async (req, res) => {
   try {
     const result = [];
-    const resultadoTotal = [];
+
     const actividades = req.body;   
     console.log("Actividades " , actividades);
     actividades.forEach((tituloActividad) => {      
       let partidaAContar = res.partidas.find(item => item.actividad === tituloActividad.actividad && item.idSesion === req.params.idSesion);          
-      // result.push(countVotes(partidaAContar));
+      result.push(countVotes(partidaAContar));
     });    
-    res.json(actividades);
-    // result.sort((a, b) => b[0].sum - a[0].sum);
+    // res.json(actividades);
+    result.sort((a, b) => b[0].sum - a[0].sum);
     console.log("resultado: ", result);
     // result.forEach((element) => {
     //   element.forEach((item) =>{

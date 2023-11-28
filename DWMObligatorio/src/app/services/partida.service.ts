@@ -32,7 +32,7 @@ export class PartidaService {
   }
 
   postPartida(nuevaPartida: Partida){
-
+    
     return this.http.post(`${this.gameUrl}/actividades`, nuevaPartida);
   }
   
@@ -43,18 +43,21 @@ export class PartidaService {
       const votosData = voto.votos;
       const valorVoto = votosData[userId];
 
-      // const body = {
-      //   voto: valorVoto,
-      //   actividad: actividad        
-      // };
+       const body = {
+         voto: valorVoto,
+         actividad: actividad        
+       };
 
-      const body = {
-        votoUser: votosData,
-        actividad: actividad
-      }
+      // const body = {
+      //   votoUser: votosData,
+      //   actividad: actividad
+      // }
+
+      console.log("BODY DEL VOTO AGREGADO: ", body)
       this.http.patch(`${this.gameUrl}/actividades/${idSesion}`, body).subscribe({
         next: (response) => {
-          console.log("Guardado de votos", response);                  
+          console.log("Guardado de votos", response);       
+                     
         },
         error: (error) => {
           console.log(error); 
@@ -77,6 +80,7 @@ export class PartidaService {
       actividades.push(actividad);
     });
 
+    console.log("CONTAR VOTOS MEDIANTE LAS ACTIVIDADES;: ", actividades)
     return this.http.post(`${this.gameUrl}/countVotes/${idSesion}`,  actividades);
   }
   //nuevo

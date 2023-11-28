@@ -38,24 +38,26 @@ export class ShowActivitiesComponent {
       if (actividad) {
         this.actividades = [actividad];
         this.todasLasActividades.push(actividad.title);
+
         let partidaActual: Partida = {
           idSesion: this.idSesion!== null ? this.idSesion : '',
-          idPropuesta: this.propuestaId !== null ? this.propuestaId : '', // Asigna '' si propuestaId es null
+          idPropuesta: this.propuestaId !== null ? this.propuestaId : '', 
           fechaDeJuego: new Date(),
           actividad: actividad.title,
           votos: [],
         }
 
-        let nuevaActividad: Votos = {
-          actividad: actividad.title,
-          votos: {}
-        };
+          let nuevaActividad: Votos = {
+            actividad: actividad.title,
+            votos: {}
+          };
 
-        this.votos.push(nuevaActividad);
+         this.votos.push(nuevaActividad);
         
         this.partida.postPartida(partidaActual).subscribe({
           next: (response) => {
-            console.log("Respuesta:", response);            
+            console.log("Respuesta:", response);   
+            console.log("PARTIDA AGREGADA POR CADA ACTIVIDAD: ", partidaActual)         
           },
           error: (error) => {
             console.log("Error:", error);
@@ -68,10 +70,11 @@ export class ShowActivitiesComponent {
 
     this.socket.finActividad$.subscribe(() => {
       //console.log(this.votos);
-      this.addVotos();
-      
-      this.countVotos(this.todasLasActividades);
-      this.accesoVoto = false;
+      const agrego = this.addVotos();
+      if(agrego){
+         const contador = this.countVotos(this.todasLasActividades);
+         console.log("VOTOS CONTAODS: ", contador);
+      }
     });
 
   }
@@ -91,6 +94,7 @@ export class ShowActivitiesComponent {
   votar(voto: number, actividad: string) {
     console.log("USER ID", this.userId);
     console.log("voto: ", voto)
+    
     if (this.idSesion !== null && actividad != '') {
       const id = this.userId || '';
       let objetoActividad = this.votos.find((item) => item.actividad === actividad);
@@ -109,14 +113,16 @@ export class ShowActivitiesComponent {
           // Si el usuario ya había votado previamente para esta actividad, actualiza el voto, es decir, nos quedamos con el último voto del usuario
           objetoActividad.votos[id] += voto;
         }
-        console.log(objetoActividad);
+        console.log("EL VOTO GUARDADO: ", objetoActividad);
     }
   }
 
-private addVotos(){
+private  addVotos() : boolean{
   if (this.idSesion !== null && this.userId !== null && this.votos.length !== 0) {
-    this.partida.addVoto(this.votos,this.idSesion, this.userId);
+     this.partida.addVoto(this.votos,this.idSesion, this.userId);
+    return true;
   }
+  return false;
 }
 
 //nuevo
@@ -141,6 +147,5 @@ private addVotos(){
    }
    
  }
-//nuevo
 
 }
