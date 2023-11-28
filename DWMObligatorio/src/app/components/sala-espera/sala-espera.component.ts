@@ -3,7 +3,7 @@ import { AuthServiceService } from '../../services/auth-service.service';
 import { environment } from 'src/environment/environment';
 import { SocketService } from '../../services/socket.service';
 import { v4 as uuidv4 } from 'uuid';
-
+import { Location } from '@angular/common';
 import { PartidaService } from 'src/app/services/partida.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SalaEsperaComponent implements OnInit {
 
+
    imageUrl: string = '';
    usuarios: number = 0;
    comienzo: boolean = false;
@@ -24,7 +25,8 @@ export class SalaEsperaComponent implements OnInit {
   propuestaId : string ='';
 
 
-  constructor(private AuthService: AuthServiceService, private socket: SocketService, private partida: PartidaService, private route: ActivatedRoute) {
+  constructor(private AuthService: AuthServiceService, private socket: SocketService, private location: Location, private partida: PartidaService, private route: ActivatedRoute) {
+
 
 
     this.socket.userCount$.subscribe(count => {
@@ -62,6 +64,7 @@ export class SalaEsperaComponent implements OnInit {
   }
 
 
+
    readID() {     
      if (this.propuestaId != null) {
        console.log(this.propuestaId);
@@ -69,13 +72,17 @@ export class SalaEsperaComponent implements OnInit {
       const accessToken = localStorage.getItem('access_token');   
       this.partida.postStart(accessToken || 'null', this.propuestaId);
       this.comienzo = true;
-     }
-   }
+    }
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
 
 
 }
 
-    
 
-    
+
+
 

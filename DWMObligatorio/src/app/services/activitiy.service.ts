@@ -19,12 +19,12 @@ export class ActivitiyService {
     return this.http.get<Activity[]>(this.activitiesUrl, { headers });
   }
 
-  getActivityByID(token: string): Observable<Activity[]> {
+  getActivityByID(token: string,  id: string ): Observable<Activity> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    
-    return this.http.get<Activity[]>(this.activitiesUrl, { headers });
+    const url = `${this.activitiesUrl}/${id}`;
+    return this.http.get<Activity>(url, { headers });
   }
 
   addActivity(token: string, newActivity: Activity): Observable<Activity> {
@@ -35,12 +35,12 @@ export class ActivitiyService {
     return this.http.post<Activity>(this.activitiesUrl, newActivity, { headers });
   }
 
-  modificarActivity(token: string, updatedActivity: Activity): Observable<Activity> {
+  modificarActivity(token: string, updatedActivity: any): Observable<Activity> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
-    const url = `${this.activitiesUrl}/${updatedActivity.id}`;
+    const url = `${this.activitiesUrl}/${updatedActivity._id}`;
     return this.http.patch<Activity>(url, updatedActivity, { headers });
   }
 

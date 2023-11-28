@@ -1,8 +1,10 @@
 <mat-toolbar>
+  
   <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
     <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
     <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
   </button>
+  
 </mat-toolbar>
 
 <mat-sidenav-container>
@@ -10,6 +12,7 @@
     <div class="contenedor">
       <button routerLink="/add-activity" class="btn btn-sidenav">Add activity</button>
       <button routerLink="/add-proposal" class="btn btn-sidenav" >Add proposal</button>
+      <button routerLink="/display-activities" class="btn btn-sidenav" >Show activities</button>
       <button class="btn btn-sidenav" (click)="logout()">Log out</button>
     </div>
   </mat-sidenav>

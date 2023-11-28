@@ -4,7 +4,7 @@
      <div class="actividad-tarjeta" *ngIf="actividades.length > 0">
         <h3>{{ actividades[0].title }}</h3>
         <p>{{ actividades[0].description }}</p>
-        <img [src]="actividades[0].image" alt="{{ actividades[0].title }}">
+        <img [src]="actividades[0].image"  class="img-preview" alt="{{ actividades[0].title }}">
     
     
         <div *ngIf='contieneSecuenciaEspecifica("/game-user")'>

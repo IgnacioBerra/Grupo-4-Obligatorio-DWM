@@ -40,12 +40,12 @@ export class PropuestaService {
     return this.http.post<Propuesta>(this.propuestasUrl, newPropuesta, { headers });
   }
 
-  modificarPropuesta(token: string, updatedPropuesta: Propuesta): Observable<Propuesta> {
+  modificarPropuesta(token: string, updatedPropuesta: any): Observable<Propuesta> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-
-    const url = `${this.propuestasUrl}/${updatedPropuesta.id}`;
+    console.log(updatedPropuesta);
+    const url = `${this.propuestasUrl}/${updatedPropuesta._id}`;
     return this.http.patch<Propuesta>(url, updatedPropuesta, { headers });
   }
 

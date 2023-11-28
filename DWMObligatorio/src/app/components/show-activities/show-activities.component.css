@@ -35,7 +35,16 @@
     font-size: 13px;
 }
 
-.btn-check:checked+.btn-vote {
+.btn-vote:hover{
+    background-color: rgb(196, 102, 255);
+    border-color: white;
+}
+
+.btn-vote:active{
+    background-color: rgb(196, 102, 255);
+    border-color: white;
+}
+.btn-check:checked+.btn-vote:checked {
     background-color: rgb(196, 102, 255);
     border-color: white;
 }
@@ -57,4 +66,9 @@
 
 .tituloActividad {
     font-family: 'Fjalla One', sans-serif;
+}
+
+.img-preview {
+    height: 270px;
+    width: 230px;
 }

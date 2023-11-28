@@ -16,6 +16,10 @@
     color: white;
 }
 
+.play-button:hover {
+    background-color: #5e2a7f;
+}
+
 
 .content-div {
     position: absolute;
@@ -58,4 +62,12 @@
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0.3);
     outline: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.volver{
+    color: white;
+}
+
+.volver:hover{
+    color: rgb(168, 161, 161);
 }
