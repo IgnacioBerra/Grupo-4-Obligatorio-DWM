@@ -20,25 +20,24 @@ export class CardViewComponent implements OnInit {
   }
 
 
-  guardarId(propuestaId:string)
-  {
+  guardarId(propuestaId: string) {
     localStorage.setItem('propuestaId', propuestaId);
     this.router.navigate([`/game/${propuestaId}`]);
-    
-  }
-
 
   }
 
-  removeId(actividadId: string) {
-    this.propuestaService.eliminarPropuesta(localStorage.getItem('access_token') || 'null', actividadId).subscribe(() => {
-      console.log('Propuesta eliminada');
-      location.reload();
-    });
 
-  }
 
-  editarPropuesta(id: number): void {
-    this.router.navigate(['/editar-propuesta', id]);
-  }
+
+removeId(actividadId: string) {
+  this.propuestaService.eliminarPropuesta(localStorage.getItem('access_token') || 'null', actividadId).subscribe(() => {
+    console.log('Propuesta eliminada');
+    location.reload();
+  });
+
+}
+
+editarPropuesta(id: number): void {
+  this.router.navigate(['/editar-propuesta', id]);
+}
 }
