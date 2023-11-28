@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environment/environment';
 import { Partida } from '../interfaces/partida';
 import { Votos } from '../interfaces/votos';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root'
@@ -30,44 +31,58 @@ export class PartidaService {
     );    
   }
 
-  postPartida(token: string, nuevaPartida: Partida){
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    });
-
-    return this.http.post(`${this.gameUrl}/actividades`, nuevaPartida, { headers });
+  postPartida(nuevaPartida: Partida){
+    
+    return this.http.post(`${this.gameUrl}/actividades`, nuevaPartida);
   }
   
-  addVoto(votos: Votos[] ,token: string, idSesion: string, userId: string){
-    
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    });
+  addVoto(votos: Votos[] ,idSesion: string, userId: string){
 
     votos.forEach(voto => {
       const actividad = voto.actividad;
       const votosData = voto.votos;
       const valorVoto = votosData[userId];
 
-      const body = {
-        voto: valorVoto,
-        actividad: actividad        
-      };
-      
-      this.http.patch(`${this.gameUrl}/actividades/${idSesion}`, body, { headers }).subscribe({
+       const body = {
+         voto: valorVoto,
+         actividad: actividad        
+       };
+
+      // const body = {
+      //   votoUser: votosData,
+      //   actividad: actividad
+      // }
+
+      console.log("BODY DEL VOTO AGREGADO: ", body)
+      this.http.patch(`${this.gameUrl}/actividades/${idSesion}`, body).subscribe({
         next: (response) => {
-          console.log("BIEN", response);                  
+          console.log("Guardado de votos", response);       
+                     
         },
         error: (error) => {
-          console.log(error);
+          console.log(error); 
           console.log("ESTE ES EL ERROR", error.error);
         }
       });
     });
 
   }
+
+  //nuevo
+  //método para contar los votos después de que las actividades han terminado
+  countVotes(idSesion: string, nombreActividad: string[]): Observable<any> {
+    const actividades: any[] = []
+
+    nombreActividad.forEach((a) => {
+      let actividad = {
+        actividad: a
+      }
+      actividades.push(actividad);
+    });
+
+    console.log("CONTAR VOTOS MEDIANTE LAS ACTIVIDADES;: ", actividades)
+    return this.http.post(`${this.gameUrl}/countVotes/${idSesion}`,  actividades);
+  }
+  //nuevo
 }
   

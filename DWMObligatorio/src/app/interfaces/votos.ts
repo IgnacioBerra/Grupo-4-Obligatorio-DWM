@@ -1,4 +1,5 @@
 export interface Votos {
-    actividad: string;
-    votos: { [usuarioId: string]: number };
+     actividad: string;
+     votos: { [usuarioId: string]: number };
+
 }

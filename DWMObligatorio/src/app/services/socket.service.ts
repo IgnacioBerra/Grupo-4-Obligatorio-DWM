@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
 import { environment } from 'src/environment/environment';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Activity } from '../interfaces/activity';
 import { PropuestaService } from './propuesta.service';
@@ -53,8 +53,7 @@ export class SocketService {
     }
 
     public escucharFinActividades(){
-      this.socket.on('fin-actividades' ,() => {
-        console.log("TERMINO");
+      this.socket.on('fin-actividades' ,() => {        
         this._finActividad.next();
       })
     }
@@ -76,6 +75,5 @@ export class SocketService {
   private sendUser(id: string): void {
     this.socket.emit('usuario-conectado', id);
   }
-
 
 }

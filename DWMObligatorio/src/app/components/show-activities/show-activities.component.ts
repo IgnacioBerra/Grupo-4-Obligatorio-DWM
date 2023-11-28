@@ -6,6 +6,9 @@ import { Activity } from 'src/app/interfaces/activity';
 import { Partida } from 'src/app/interfaces/partida';
 import { PartidaService } from 'src/app/services/partida.service';
 import { Votos } from 'src/app/interfaces/votos';
+import { Router, NavigationExtras } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-show-activities',
@@ -13,60 +16,69 @@ import { Votos } from 'src/app/interfaces/votos';
   styleUrls: ['./show-activities.component.css']
 })
 export class ShowActivitiesComponent {
-
+  
+  actividadGanadora :string ='';
+  cantidadVotos: number | null = null;
   actividades: Activity[] = [];
   actividadesSubscription: Subscription | undefined;
-  propuestaId: string | null = localStorage.getItem('propuestaId');
-  accessToken: string | null = localStorage.getItem('access_token');
+  propuestaId: string | null = localStorage.getItem('propuestaId');  
   idSesion: string | null = localStorage.getItem('idSesion');
   userId: string | null = localStorage.getItem('userId');
-  accesoVoto: boolean = false;  
-
+  accesoVoto: boolean = true;  
+  todasLasActividades: string[] = [];
+  todoLosVotos: any[] = [];
+  partidas: Partida[] = [];
   votos: Votos[] = [];
 
   //activities!: Observable<any[]>;
-  constructor(private activityService: ActivitiyService, private socket : SocketService, private partida: PartidaService) {
+  constructor(private activityService: ActivitiyService, private socket : SocketService, private partida: PartidaService, private router: Router) {
 
     this.socket.escucharInicioActividad(); 
     this.socket.escucharFinActividades();
+    
   
     this.socket.actividadActual$.subscribe((actividad) => {
       if (actividad) {
         this.actividades = [actividad];
+        this.todasLasActividades.push(actividad.title);
 
         let partidaActual: Partida = {
           idSesion: this.idSesion!== null ? this.idSesion : '',
-          idPropuesta: this.propuestaId !== null ? this.propuestaId : '', // Asigna '' si propuestaId es null
+          idPropuesta: this.propuestaId !== null ? this.propuestaId : '', 
           fechaDeJuego: new Date(),
           actividad: actividad.title,
           votos: [],
         }
+        this.partidas.push(partidaActual);
+          let nuevaActividad: Votos = {
+            actividad: actividad.title,
+            votos: {}
+          };
 
-        let nuevaActividad: Votos = {
-          actividad: actividad.title,
-          votos: {}
-        };
-
-        this.votos.push(nuevaActividad);
+         this.votos.push(nuevaActividad);
         
-        this.partida.postPartida(this.accessToken || '', partidaActual).subscribe({
+        
+        
+        this.partida.postPartida(partidaActual).subscribe({
           next: (response) => {
-            console.log("Respuesta:", response);            
+            console.log("Respuesta:", response);   
+            console.log("PARTIDA AGREGADA POR CADA ACTIVIDAD: ", partidaActual)         
           },
           error: (error) => {
             console.log("Error:", error);
             console.log("Error completo:", error.error);
           }
-        });
-        console.log(partidaActual);
+        });        
       }
     });
 
 
     this.socket.finActividad$.subscribe(() => {
-      console.log(this.votos);
-      this.addVotos();
-      alert('¡Todas las actividades han terminado!');
+      //console.log(this.votos);
+      const agrego = this.addVotos();
+      if(agrego){
+         this.countVotos(this.todasLasActividades);
+      }
     });
 
   }
@@ -76,13 +88,6 @@ export class ShowActivitiesComponent {
     this.actividadesSubscription?.unsubscribe();
   }
 
-
-  // votar(voto: number, actividad: string) {    
-  //   if (this.idSesion !== null && this.accessToken !== null) {
-  //     this.partida.addVoto(this.accessToken, voto, this.idSesion, actividad);      
-  //   }
-  // }
-
   contieneSecuenciaEspecifica(secuencia: string): boolean {
     const currentUrl: string = window.location.href;
     return currentUrl.includes(secuencia);
@@ -91,12 +96,15 @@ export class ShowActivitiesComponent {
   
   
   votar(voto: number, actividad: string) {
-    if (this.idSesion !== null && this.accessToken !== null && actividad != '') {
+    console.log("USER ID", this.userId);
+    console.log("voto: ", voto)
+    
+    if (this.idSesion !== null && actividad != '') {
       const id = this.userId || '';
       let objetoActividad = this.votos.find((item) => item.actividad === actividad);
 
          if (!objetoActividad) {
-         objetoActividad = {
+         objetoActividad = {          
            actividad: actividad,
            votos: {}
          };
@@ -109,13 +117,47 @@ export class ShowActivitiesComponent {
           // Si el usuario ya había votado previamente para esta actividad, actualiza el voto, es decir, nos quedamos con el último voto del usuario
           objetoActividad.votos[id] += voto;
         }
-      
+        console.log("EL VOTO GUARDADO: ", objetoActividad);
     }
   }
 
-private addVotos(){
-  if (this.idSesion !== null && this.accessToken !== null && this.userId !== null) {
-  this.partida.addVoto(this.votos, this.accessToken, this.idSesion, this.userId);
+private addVotos() : boolean{
+  if (this.idSesion !== null && this.userId !== null && this.votos.length !== 0) {
+     this.partida.addVoto(this.votos,this.idSesion, this.userId);
+    return true;
   }
+  return false;
 }
+
+//nuevo
+ private countVotos(nombreActividades: string[]) {
+  console.log("NOMBRE ACTIVDIDADES: ", nombreActividades)
+   if (this.idSesion !== null && this.userId !== null ) {
+     this.partida.countVotes(this.idSesion, nombreActividades).subscribe(
+      response => {
+      
+        console.log("VOTOS: ", response[0].sum)
+        console.log("ACTIVIDAD: ", response[0].p)
+
+         const navigationExtras: NavigationExtras = {
+          state: {
+            score: response[0].sum,
+            actividad: response[0].p
+          }
+        };
+         this.router.navigate(['/ranking'], navigationExtras)
+      
+        
+      //alert(`Actividad ganadora: ${response[0].p} \nCantidad de votos: ${response[0].sum}`);
+        
+      },
+      error => {
+        console.log(error);           
+        return null;    
+      }
+     )
+   }
+   
+ }
+
 }

@@ -19,9 +19,14 @@ export class CardViewComponent implements OnInit {
     this.tarjetas = this.propuestaService.getPropuestas(accessToken || 'null');
   }
 
-  guardarId(actividadId: string) {
-    localStorage.setItem('propuestaId', actividadId);
-    this.router.navigate(['/game']);
+
+  guardarId(propuestaId:string)
+  {
+    localStorage.setItem('propuestaId', propuestaId);
+    this.router.navigate([`/game/${propuestaId}`]);
+    
+  }
+
 
   }
 

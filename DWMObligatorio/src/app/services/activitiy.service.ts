@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Activity } from "../interfaces/activity";
 import { Observable } from 'rxjs';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 export class ActivitiyService {
   constructor(private http: HttpClient) { }
 
-  private activitiesUrl = 'http://localhost:3000/activities';
+  private activitiesUrl = `http://${environment.url}:3000/activities`;
 
   getActivity(token: string): Observable<Activity[]> {
     const headers = new HttpHeaders({

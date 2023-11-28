@@ -14,6 +14,11 @@
     margin-top: 80px;
 }
 
+.content-response{
+    background-color: white;
+    padding: 20px;
+}
+
 .vote {
     margin-top: 15px;
     background-color: white;

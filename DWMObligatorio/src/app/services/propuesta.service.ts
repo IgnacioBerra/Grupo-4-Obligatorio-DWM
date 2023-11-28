@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Propuesta } from '../interfaces/propuesta';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { Propuesta } from '../interfaces/propuesta';
 export class PropuestaService {
   constructor(private http: HttpClient) { }
 
-  private propuestasUrl = 'http://localhost:3000/proposal';  
+  private propuestasUrl = `http://${environment.url}:3000/proposal`;  
 
 
   getPropuestas(token: string): Observable<Propuesta[]> {

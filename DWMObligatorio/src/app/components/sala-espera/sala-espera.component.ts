@@ -5,6 +5,7 @@ import { SocketService } from '../../services/socket.service';
 import { v4 as uuidv4 } from 'uuid';
 import { Location } from '@angular/common';
 import { PartidaService } from 'src/app/services/partida.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -14,15 +15,18 @@ import { PartidaService } from 'src/app/services/partida.service';
 })
 export class SalaEsperaComponent implements OnInit {
 
-  imageUrl: string = '';
-  usuarios: number = 0;
-  comienzo: boolean = false;
-  termino: boolean = false;
-  sessionId: string = '';
-  url: string = '';
+
+   imageUrl: string = '';
+   usuarios: number = 0;
+   comienzo: boolean = false;
+   termino: boolean = false;
+   sessionId: string = '';
+   url: string = '';
+  propuestaId : string ='';
 
 
-  constructor(private AuthService: AuthServiceService, private socket: SocketService, private location: Location, private partida: PartidaService) {
+  constructor(private AuthService: AuthServiceService, private socket: SocketService, private location: Location, private partida: PartidaService, private route: ActivatedRoute) {
+
 
 
     this.socket.userCount$.subscribe(count => {
@@ -31,17 +35,17 @@ export class SalaEsperaComponent implements OnInit {
     });
 
 
-
   }
 
-  ngOnInit() {
-    console.log(environment.url);
-    this.sessionId = uuidv4(); //creo el id de 
-    console.log("sesion id: ", this.sessionId);
-    localStorage.setItem('idSesion', this.sessionId);
-    //this.AuthService.getQrFilePath(this.sessionId).subscribe((img: Blob) => {
+  ngOnInit() {    
+    this.sessionId = uuidv4(); //creo el id de     
+    localStorage.setItem('idSesion', this.sessionId);   
+    this.route.params.subscribe(params => {
+      this.propuestaId = params['propuestaId'];   
+    }); 
+    console.log("esta es la propues: ", this.propuestaId)
     const accessToken = localStorage.getItem('access_token');
-    this.AuthService.getQrFilePath(accessToken || 'null', this.sessionId).subscribe((response: any) => {
+    this.AuthService.getQrFilePath(accessToken || 'null', this.sessionId, this.propuestaId).subscribe((response: any) => {
       this.url = response.qrCodeUrl; // esta es la url del QR
       const qrCodeBufferBase64: string = response.qrCodeBuffer;
 
@@ -54,21 +58,19 @@ export class SalaEsperaComponent implements OnInit {
       const byteArray = new Uint8Array(byteNumeros);
       const byteBlob = new Blob([byteArray], { type: 'image/png' });
 
-
       this.imageUrl = URL.createObjectURL(byteBlob);
       this.socket.retrieveStoredUserCount(); // Recupera el valor almacenado en localStorage       
     });
   }
 
 
-  readID() {
-    // LEO DEL LOCALSTORAGE CUAL ES LA PROPUESTA QUE SE HABIA SELECCIONADO PREVIAMENTE PARA DESPUES JUGARLA.
-    const propuestaId = localStorage.getItem('propuestaId');
-    if (propuestaId != null) {
-      console.log(propuestaId);
+
+   readID() {     
+     if (this.propuestaId != null) {
+       console.log(this.propuestaId);
       //  this.fetchPost(propuestaId);   
-      const accessToken = localStorage.getItem('access_token');
-      this.partida.postStart(accessToken || 'null', propuestaId);
+      const accessToken = localStorage.getItem('access_token');   
+      this.partida.postStart(accessToken || 'null', this.propuestaId);
       this.comienzo = true;
     }
   }
