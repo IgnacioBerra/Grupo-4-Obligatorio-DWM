@@ -29,15 +29,36 @@ export class ShowActivitiesComponent {
   todoLosVotos: any[] = [];
   partidas: Partida[] = [];
   votos: Votos[] = [];
+  cantidad: number = 100000000;
+  ok: number = 1;
+  partidaActuale: Partida = {
+    idSesion: '',
+    idPropuesta: '', 
+    fechaDeJuego: new Date(),
+    actividad: '',
+    votos: [],
+  }
+  public actividadActual: Activity | null = null;
 
   //activities!: Observable<any[]>;
-  constructor(private activityService: ActivitiyService, private socket : SocketService, private partida: PartidaService, private router: Router) {
+  constructor(private socket : SocketService, private partida: PartidaService, private router: Router) {
 
     this.socket.escucharInicioActividad(); 
     this.socket.escucharFinActividades();
     
   
-    this.socket.actividadActual$.subscribe((actividad) => {
+    this.socket.finActividad$.subscribe(() => {
+      //console.log(this.votos);
+      const agrego = this.addVotos();
+      if(agrego){
+         this.countVotos(this.todasLasActividades);
+      }
+    });
+
+  }
+  ngOnInit() {
+
+    this.actividadesSubscription = this.socket.actividadActual$.subscribe((actividad) => {
       if (actividad) {
         this.actividades = [actividad];
         this.todasLasActividades.push(actividad.title);
@@ -58,7 +79,7 @@ export class ShowActivitiesComponent {
          this.votos.push(nuevaActividad);
         
         
-        
+        console.log("PARTIDAS:::::::::::::: ",this.partidas)
         this.partida.postPartida(partidaActual).subscribe({
           next: (response) => {
             console.log("Respuesta:", response);   
@@ -71,18 +92,7 @@ export class ShowActivitiesComponent {
         });        
       }
     });
-
-
-    this.socket.finActividad$.subscribe(() => {
-      //console.log(this.votos);
-      const agrego = this.addVotos();
-      if(agrego){
-         this.countVotos(this.todasLasActividades);
-      }
-    });
-
   }
-
 
   ngOnDestroy():void{
     this.actividadesSubscription?.unsubscribe();
@@ -148,7 +158,6 @@ private addVotos() : boolean{
          this.router.navigate(['/ranking'], navigationExtras)
       
         
-      //alert(`Actividad ganadora: ${response[0].p} \nCantidad de votos: ${response[0].sum}`);
         
       },
       error => {
