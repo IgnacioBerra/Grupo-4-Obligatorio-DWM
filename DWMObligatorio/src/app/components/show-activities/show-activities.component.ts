@@ -6,6 +6,9 @@ import { Activity } from 'src/app/interfaces/activity';
 import { Partida } from 'src/app/interfaces/partida';
 import { PartidaService } from 'src/app/services/partida.service';
 import { Votos } from 'src/app/interfaces/votos';
+import { Router, NavigationExtras } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-show-activities',
@@ -24,11 +27,11 @@ export class ShowActivitiesComponent {
   accesoVoto: boolean = true;  
   todasLasActividades: string[] = [];
   todoLosVotos: any[] = [];
-  
+  partidas: Partida[] = [];
   votos: Votos[] = [];
 
   //activities!: Observable<any[]>;
-  constructor(private activityService: ActivitiyService, private socket : SocketService, private partida: PartidaService) {
+  constructor(private activityService: ActivitiyService, private socket : SocketService, private partida: PartidaService, private router: Router) {
 
     this.socket.escucharInicioActividad(); 
     this.socket.escucharFinActividades();
@@ -46,13 +49,15 @@ export class ShowActivitiesComponent {
           actividad: actividad.title,
           votos: [],
         }
-
+        this.partidas.push(partidaActual);
           let nuevaActividad: Votos = {
             actividad: actividad.title,
             votos: {}
           };
 
          this.votos.push(nuevaActividad);
+        
+        
         
         this.partida.postPartida(partidaActual).subscribe({
           next: (response) => {
@@ -72,8 +77,7 @@ export class ShowActivitiesComponent {
       //console.log(this.votos);
       const agrego = this.addVotos();
       if(agrego){
-         const contador = this.countVotos(this.todasLasActividades);
-         console.log("VOTOS CONTAODS: ", contador);
+         this.countVotos(this.todasLasActividades);
       }
     });
 
@@ -117,7 +121,7 @@ export class ShowActivitiesComponent {
     }
   }
 
-private  addVotos() : boolean{
+private addVotos() : boolean{
   if (this.idSesion !== null && this.userId !== null && this.votos.length !== 0) {
      this.partida.addVoto(this.votos,this.idSesion, this.userId);
     return true;
@@ -131,17 +135,25 @@ private  addVotos() : boolean{
    if (this.idSesion !== null && this.userId !== null ) {
      this.partida.countVotes(this.idSesion, nombreActividades).subscribe(
       response => {
-        console.log("respuestAAAa ", response[0].p);
-        console.log("REPONSE", response);
-        console.log("REPONSE[0]", response[0]);
-        console.log("REPONSE sum", response[0].sum);
-        this.actividadGanadora = response[0].p;
-        this.cantidadVotos = response[0].sum;
-      //alert(`Actividad ganadora: ${response[0].p} \nCantidad de votos: ${response[0].sum}`);
+      
+        console.log("VOTOS: ", response[0].sum)
+        console.log("ACTIVIDAD: ", response[0].p)
 
+         const navigationExtras: NavigationExtras = {
+          state: {
+            score: response[0].sum,
+            actividad: response[0].p
+          }
+        };
+         this.router.navigate(['/ranking'], navigationExtras)
+      
+        
+      //alert(`Actividad ganadora: ${response[0].p} \nCantidad de votos: ${response[0].sum}`);
+        
       },
       error => {
-        console.log(error);               
+        console.log(error);           
+        return null;    
       }
      )
    }
